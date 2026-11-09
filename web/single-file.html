@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Si5351AVFO Control</title>
+  <style>
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #111418;
+  color: #e6e6e6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  border-bottom: 1px solid #2a2f36;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
+}
+
+#connection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+  gap: 1rem;
+}
+
+section {
+  background: #171b21;
+  border: 1px solid #2a2f36;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+#unsupported {
+  grid-column: 1 / -1;
+  background: #3a1f1f;
+  border-color: #7a3030;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  color: inherit;
+  background: #0d1014;
+  border: 1px solid #3a414b;
+  border-radius: 6px;
+  padding: 0.45rem 0.6rem;
+}
+
+input,
+select {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+input[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0;
+}
+
+dt {
+  color: #9aa4b2;
+}
+
+dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+#clock-controls {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.clock-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.5rem;
+  border: 1px solid #2a2f36;
+  border-radius: 6px;
+}
+
+.memory-row {
+  display: grid;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid #23282f;
+}
+
+.memory-row > span:nth-child(3) {
+  display: flex;
+  gap: 0.2rem;
+  flex-wrap: nowrap;
+}
+
+.memory-row:last-child {
+  border-bottom: 0;
+}
+
+.memory-row button {
+  padding: 0.2rem 0.35rem;
+  font-size: 0.75rem;
+}
+
+#console-log {
+  display: block;
+  width: 100%;
+  height: 12rem;
+  overflow-y: auto;
+  background: #0d1014;
+  border: 1px solid #3a414b;
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+}
+
+#console-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+}
+
+#console-form input {
+  width: 100%;
+  margin-top: 0;
+}
+
+#settings-panel button {
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Hero: prominent frequency display */
+#hero-panel {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+#freq-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.freq-value {
+  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.freq-unit {
+  font-size: 1.25rem;
+  color: #9aa4b2;
+}
+
+#tuning-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  margin: 0.75rem 0 1rem;
+  flex-wrap: wrap;
+}
+
+#step-down,
+#step-up {
+  width: 3.25rem;
+  height: 3.25rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.knob {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #2a313a, #0d1014);
+  border: 2px solid #3a414b;
+  position: relative;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  display: grid;
+  place-items: center;
+}
+
+.knob:active {
+  cursor: grabbing;
+}
+
+.knob:focus-visible {
+  outline: 2px solid #5b9cff;
+  outline-offset: 3px;
+}
+
+.knob-indicator {
+  position: absolute;
+  top: 0.5rem;
+  left: 50%;
+  width: 4px;
+  height: 1.1rem;
+  margin-left: -2px;
+  background: #5b9cff;
+  border-radius: 2px;
+  transform-origin: 50% 2.9rem;
+  transition: transform 0.08s linear;
+}
+
+#tuning-step {
+  display: flex;
+  justify-content: center;
+}
+
+#tuning-step label {
+  margin: 0;
+  min-width: 12rem;
+}
+
+/* Secondary status strip */
+#status-panel.secondary dl {
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: 0.25rem 1rem;
+}
+
+#status-panel.secondary dt {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#status-panel.secondary dd {
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .clock-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .freq-value {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .knob {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+}
+
+</style>
+</head>
+<body>
+  <header>
+    <h1>Si5351AVFO</h1>
+    <div id="connection">
+      <button id="connect">Connect</button>
+      <button id="disconnect" hidden>Disconnect</button>
+      <span id="port-info"></span>
+      <span id="firmware-version"></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="unsupported" hidden>
+      This browser does not support Web Serial. Use Chrome or Edge on desktop.
+    </section>
+
+    <section id="hero-panel" class="hero">
+      <div id="freq-display" aria-live="polite">
+        <span id="status-freq" class="freq-value">—</span>
+        <span class="freq-unit">Hz</span>
+      </div>
+      <div id="tuning-controls">
+        <button id="step-down" type="button" aria-label="Step frequency down">−</button>
+        <div id="tuning-knob" class="knob" role="slider" tabindex="0"
+             aria-label="Tuning knob" aria-valuemin="8000" aria-valuemax="160000000">
+          <span class="knob-indicator" aria-hidden="true"></span>
+        </div>
+        <button id="step-up" type="button" aria-label="Step frequency up">+</button>
+      </div>
+      <div id="tuning-step">
+        <label>Step
+          <select id="step">
+            <option value="100000">100 kHz</option>
+            <option value="10000">10 kHz</option>
+            <option value="1000">1 kHz</option>
+            <option value="500">500 Hz</option>
+            <option value="100">100 Hz</option>
+            <option value="10">10 Hz</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section id="status-panel" class="secondary">
+      <h2>Status</h2>
+      <dl>
+        <dt>Band</dt><dd id="status-band">—</dd>
+        <dt>Step</dt><dd id="status-step">—</dd>
+        <dt>Mode</dt><dd id="status-mode">—</dd>
+        <dt>Si5351</dt><dd id="status-si5351">—</dd>
+        <dt>Outputs</dt><dd id="status-outputs" aria-live="polite">—</dd>
+        <dt>Plan flags</dt><dd id="status-flags" aria-live="polite">—</dd>
+      </dl>
+    </section>
+
+    <section id="tuning-panel">
+      <h2>Tuning</h2>
+      <label>Frequency (Hz)
+        <input id="frequency" type="number" min="8000" max="160000000" step="1">
+      </label>
+      <label>Band
+        <select id="band">
+          <option>160M</option>
+          <option>80M</option>
+          <option>60M</option>
+          <option>40M</option>
+          <option>30M</option>
+          <option>20M</option>
+          <option>17M</option>
+          <option>15M</option>
+          <option>12M</option>
+          <option>10M</option>
+          <option>6M</option>
+          <option>4M</option>
+          <option>2M</option>
+        </select>
+      </label>
+      <label>Mode
+        <select id="mode">
+          <option value="DIR">Direct</option>
+          <option value="SH">Superhet</option>
+          <option value="IQ">Quadrature</option>
+        </select>
+      </label>
+    </section>
+
+    <section id="outputs-panel">
+      <h2>Outputs</h2>
+      <div id="clock-controls"></div>
+    </section>
+
+    <section id="superhet-panel">
+      <h2>Superhet / quadrature</h2>
+      <label>IF (Hz)
+        <input id="if" type="number" min="8000" max="160000000" step="1">
+      </label>
+      <label>Injection
+        <select id="injection">
+          <option value="HI">High</option>
+          <option value="LO">Low</option>
+        </select>
+      </label>
+      <label>I/Q order
+        <select id="iq-order">
+          <option value="0">CLK0 = I</option>
+          <option value="1">CLK1 = I</option>
+        </select>
+      </label>
+      <label>Tuning limit
+        <select id="limit">
+          <option value="HAM">Amateur only</option>
+          <option value="WIDE">Wide open</option>
+        </select>
+      </label>
+    </section>
+
+    <section id="memory-panel">
+      <h2>Memories</h2>
+      <div id="memory-list"></div>
+    </section>
+
+    <section id="settings-panel">
+      <h2>Settings</h2>
+      <label>Calibration (ppb)
+        <input id="calibration" type="number" min="-999999" max="999999" step="1">
+      </label>
+      <button id="save">Save now</button>
+      <button id="reset">Reset settings</button>
+      <button id="factory-reset">Factory reset</button>
+    </section>
+
+    <section id="console-panel">
+      <h2>Console</h2>
+      <output id="console-log"></output>
+      <form id="console-form">
+        <input id="console-input" placeholder="STATUS">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+(()=>{var J=Object.defineProperty;var X=(n,e,t)=>()=>{if(t)throw t[0];try{return n&&(e=n(n=0)),e}catch(s){throw t=[s],s}};var Z=(n,e)=>{for(var t in e)J(n,t,{get:e[t],enumerable:!0})};var W={};Z(W,{installMockSerial:()=>ie});function ie(){}var G=X(()=>{});var ee={IQRANGE:"Quadrature output is only supported from 4.761905 MHz to 90 MHz.",EMPTY:"That memory channel is empty.",ARG:"The device rejected the argument.",STEP:"Supported steps are 100k, 10k, 1k, 500, 100, and 10 Hz.",BAND:"Unknown band name.",LONG:"Command line is longer than 32 characters.",NOTIMPL:"The firmware has not implemented this yet.",CMD:"Unknown command."};function c(n){let e=n.map(String).join(" ").trim().toUpperCase();if(e.length>32)throw new Error(`Command too long: ${e}`);return e}function g(n){return c(["F",n])}function L(n){return c(["STEP",n])}function I(n){return c(["BAND",n])}function w(n){return c(["MODE",n])}function x(n){return c(["ON",`CLK${n}`])}function C(n){return c(["OFF",`CLK${n}`])}function k(n,e){return c(["DRIVE",`CLK${n}`,e])}function R(n){return c(["IF",n])}function q(n){return c(["INJ",n])}function S(n){return c(["IQ",n])}function M(n){return c(["LIMIT",n])}function F(n,e){return c(["FOVR",`CLK${n}`,e?1:0])}function O(n){return c(["MS",n])}function B(n){return c(["MR",n])}function $(n){return c(["MC",n])}function f(){return"M?"}function T(n){return c(["CAL",n])}function A(){return"SAVE"}function N(){return"RESET"}function K(){return"RESET ALL"}function b(){return"STATUS"}function D(){return"VER"}function P(n){return ee[n]||`Device error: ${n}`}function _(n,e=3){let t=parseInt(n,2);return Array.from({length:e},(s,i)=>!!(t&1<<i))}function U(n){let e={freq:null,band:null,step:null,mode:null,clockEnabled:[!1,!1,!1],outputs:[null,null,null],ifFrequency:null,injection:null,iqOrder:null,limit:null,drive:[null,null,null],filterOverride:[!1,!1,!1],calibration:null,flags:0,si5351Ok:!1};for(let t of n.trim().split(/\s+/)){let s=t.indexOf("=");if(s<0)continue;let i=t.slice(0,s),r=t.slice(s+1);switch(i){case"F":e.freq=parseInt(r,10);break;case"BAND":e.band=r==="--"?null:r;break;case"STEP":e.step=parseInt(r,10);break;case"MODE":e.mode=r;break;case"EN":e.clockEnabled=_(r);break;case"OUT":e.outputs=r.split(",").map(o=>o==="OFF"?null:parseInt(o,10));break;case"IF":e.ifFrequency=parseInt(r,10);break;case"INJ":e.injection=r;break;case"IQ":e.iqOrder=parseInt(r,10);break;case"LIMIT":e.limit=r;break;case"DRIVE":e.drive=r.split(",").map(o=>parseInt(o,10));break;case"FOVR":e.filterOverride=_(r);break;case"CAL":e.calibration=parseInt(r,10);break;case"FLAGS":e.flags=parseInt(r,10);break;case"SI5351":e.si5351Ok=r==="OK";break;default:break}}return e}function j(n){return(typeof n=="string"?n.split(/\r?\n/):n).slice(0,10).map((t,s)=>{let i=t.trim(),r=/^M(\d+)\s+(.+)$/.exec(i);if(!r)return{channel:s,empty:!0};let o=parseInt(r[1],10),l=r[2].trim();if(l==="--")return{channel:o,empty:!0};let[m,u,a]=l.split(/\s+/);return{channel:o,empty:!1,freq:parseInt(m,10),mode:u,band:a}})}function Q(n){let e=/^(.*?)\s+(\d+\.\d+\.\d+)$/.exec(n.trim());return e?{product:e[1],version:e[2]}:{product:n.trim(),version:null}}function V(n){let e=n.trim(),t=/^ERR\s+([A-Z]+)/.exec(e);return t?P(t[1]):e}var ne={1:"IQ low: CLK0/CLK1 muted",2:"LO out of range: CLK0 muted",4:"LPF limit: clock muted",8:"IQ high: CLK0/CLK1 muted",16:"Si5351 refused a clock"};function H(n){return Object.entries(ne).filter(([e])=>n&Number(e)).map(([,e])=>e)}function p(){return!!(typeof navigator<"u"&&navigator.serial&&typeof navigator.serial.requestPort=="function")}var v=class{constructor(e=512){this.maxLineLength=e,this.buffer=""}feed(e){this.buffer+=String(e).replace(/\r\n/g,`
+`).replace(/\r/g,`
+`);let t=[],s;for(;(s=this.buffer.indexOf(`
+`))>=0;){let i=this.buffer.slice(0,s);if(this.buffer=this.buffer.slice(s+1),i.length>this.maxLineLength)throw new Error("Line too long");t.push(i)}return t}},y=class{constructor(){this.port=null,this.reader=null,this.writer=null,this.info=null,this._closed=!1,this._decoder=new v,this._textDecoder=new TextDecoder,this._pendingLines=[]}async open(){if(!p())throw new Error("Web Serial is not supported by this browser");return this.port=await navigator.serial.requestPort(),await this.port.open({baudRate:115200}),this.reader=this.port.readable.getReader(),this.writer=this.port.writable.getWriter(),this.info=typeof this.port.getInfo=="function"?this.port.getInfo():null,this.port}async writeLine(e){if(!this.port||!this.writer)throw new Error("Serial port is not open");await this.writer.write(new TextEncoder().encode(`${e}
+`))}async readLine(){for(;;){if(this._pendingLines.length)return this._pendingLines.shift();let{value:e,done:t}=await this.reader.read();if(t)return null;let s=this._textDecoder.decode(e,{stream:!0});this._pendingLines.push(...this._decoder.feed(s))}}async*readLines(){for(;!this._closed;){let e=await this.readLine();if(e===null)return;yield e}}async close(){this._closed=!0;let e=[];if(this.reader){try{await this.reader.cancel()}catch(t){e.push(`reader cancel: ${t.message}`)}try{this.reader.releaseLock()}catch(t){e.push(`reader release: ${t.message}`)}}if(this.writer)try{this.writer.releaseLock()}catch(t){e.push(`writer release: ${t.message}`)}if(this.port)try{await this.port.close()}catch(t){e.push(`port close: ${t.message}`)}return this.reader=null,this.writer=null,this.port=null,e}};var E=class{constructor(){this.conn=null,this.poll=null,this.writeChain=Promise.resolve(),this.expectMemory=0,this.memoryLines=[],this.memoryRequestPending=!1,this.memoryRefreshQueued=!1,this.memoryRequestTimeout=null,this.closed=!1,this.connectionGeneration=0,this.versionReceived=!1,this.statusReceived=!1,this.memoryReceived=!1,this.serialDisconnectHandler=null,this.knobRotation=0,this.knobIndicator=null,this.elements={connect:document.getElementById("connect"),disconnect:document.getElementById("disconnect"),portInfo:document.getElementById("port-info"),firmwareVersion:document.getElementById("firmware-version"),unsupported:document.getElementById("unsupported"),statusFreq:document.getElementById("status-freq"),statusBand:document.getElementById("status-band"),statusStep:document.getElementById("status-step"),statusMode:document.getElementById("status-mode"),statusSi5351:document.getElementById("status-si5351"),statusOutputs:document.getElementById("status-outputs"),statusFlags:document.getElementById("status-flags"),frequency:document.getElementById("frequency"),step:document.getElementById("step"),stepUp:document.getElementById("step-up"),stepDown:document.getElementById("step-down"),tuningKnob:document.getElementById("tuning-knob"),band:document.getElementById("band"),mode:document.getElementById("mode"),ifFrequency:document.getElementById("if"),injection:document.getElementById("injection"),iqOrder:document.getElementById("iq-order"),limit:document.getElementById("limit"),calibration:document.getElementById("calibration"),clockControls:document.getElementById("clock-controls"),memoryList:document.getElementById("memory-list"),consoleLog:document.getElementById("console-log"),consoleForm:document.getElementById("console-form"),consoleInput:document.getElementById("console-input"),save:document.getElementById("save"),reset:document.getElementById("reset"),factoryReset:document.getElementById("factory-reset")}}init(){p()||(this.elements.unsupported.hidden=!1,this.elements.connect.disabled=!0),this.elements.consoleInput.setAttribute("aria-label","Console command"),this.elements.connect.addEventListener("click",()=>this.connect()),this.elements.disconnect.addEventListener("click",()=>this.disconnect()),this.elements.frequency.addEventListener("change",()=>{let e=Number(this.elements.frequency.value);this.validNumber(this.elements.frequency,e,8e3,16e7)&&this.send(g(e))}),this.elements.step.addEventListener("change",()=>{this.send(L(Number(this.elements.step.value)))}),this.elements.band.addEventListener("change",()=>{this.send(I(this.elements.band.value))}),this.elements.mode.addEventListener("change",()=>{this.send(w(this.elements.mode.value)),this.updateModeAvailability()}),this.elements.ifFrequency.addEventListener("change",()=>{let e=Number(this.elements.ifFrequency.value);this.validNumber(this.elements.ifFrequency,e,8e3,16e7)&&this.send(R(e))}),this.elements.injection.addEventListener("change",()=>{this.send(q(this.elements.injection.value))}),this.elements.iqOrder.addEventListener("change",()=>{this.send(S(Number(this.elements.iqOrder.value)))}),this.elements.limit.addEventListener("change",()=>{this.send(M(this.elements.limit.value))}),this.elements.calibration.addEventListener("change",()=>{let e=Number(this.elements.calibration.value);this.validNumber(this.elements.calibration,e,-999999,999999)&&this.send(T(e))}),this.elements.save.addEventListener("click",()=>this.send(A())),this.elements.reset.addEventListener("click",()=>{window.confirm("Reset settings to defaults?")&&this.send(N())}),this.elements.factoryReset.addEventListener("click",()=>{window.confirm("Factory reset will erase calibration and all memories. Continue?")&&this.send(K())}),this.elements.consoleForm.addEventListener("submit",e=>{e.preventDefault();let t=this.elements.consoleInput.value.trim();t&&this.send(t),this.elements.consoleInput.value=""}),document.addEventListener("keydown",e=>{if(e.ctrlKey||e.metaKey||e.altKey)return;let t=e.target&&e.target.tagName;t==="INPUT"||t==="TEXTAREA"||t==="SELECT"||(e.key==="+"||e.key==="="?(e.preventDefault(),this.stepFrequencyWithKnob(1)):(e.key==="-"||e.key==="_")&&(e.preventDefault(),this.stepFrequencyWithKnob(-1)))}),this.buildClockControls(),this.buildMemoryList(),this.updateModeAvailability(),this.elements.stepUp.addEventListener("click",()=>this.stepFrequencyWithKnob(1)),this.elements.stepDown.addEventListener("click",()=>this.stepFrequencyWithKnob(-1)),this.setupTuningKnob()}validNumber(e,t,s,i){return!Number.isInteger(t)||t<s||t>i?(this.log("error",`${e.id} must be an integer between ${s} and ${i}`),e.setAttribute("aria-invalid","true"),e.focus(),!1):(e.removeAttribute("aria-invalid"),!0)}stepFrequency(e){if(!this.conn)return!1;let t=Number(this.elements.frequency.value);if((this.elements.frequency.value.trim()===""||!Number.isFinite(t)||t<8e3||t>16e7)&&(t=Number(this.elements.statusFreq.textContent)),!Number.isFinite(t))return!1;let s=Number(this.elements.step.value)||1e3,i=Math.min(16e7,Math.max(8e3,t+e*s));return!Number.isInteger(i)||i===t?!1:(this.elements.frequency.value=String(i),this.elements.statusFreq.textContent=String(i),this.send(g(i)),this.updateKnob(i),!0)}stepFrequencyWithKnob(e){this.stepFrequency(e)&&this.rotateKnob(e)}rotateKnob(e){this.knobRotation=(this.knobRotation||0)+e*15,this.applyKnobRotation()}applyKnobRotation(){this.knobIndicator&&(this.knobIndicator.style.transform=`rotate(${this.knobRotation}deg)`)}updateKnob(e){let t=this.elements.tuningKnob;t&&(t.setAttribute("aria-valuenow",String(e)),t.setAttribute("aria-valuetext",`${e} Hz`))}setupTuningKnob(){let e=this.elements.tuningKnob;if(!e)return;this.knobIndicator=e.querySelector(".knob-indicator");let t=!1,s=0,i=0,r=15,o=a=>{let d=e.getBoundingClientRect(),h=d.left+d.width/2,Y=d.top+d.height/2;return Math.atan2(a.clientY-Y,a.clientX-h)*180/Math.PI},l=a=>{t=!0,i=0,s=o(a);try{e.setPointerCapture(a.pointerId)}catch{}},m=a=>{if(!t)return;let d=o(a),h=d-s;for(h>180&&(h-=360),h<-180&&(h+=360),i+=h,s=d,this.knobRotation=d,this.applyKnobRotation();i>=r;)this.stepFrequency(1),i-=r;for(;i<=-r;)this.stepFrequency(-1),i+=r},u=a=>{t=!1,i=0;try{e.releasePointerCapture(a.pointerId)}catch{}};e.addEventListener("pointerdown",l),e.addEventListener("pointermove",m),e.addEventListener("pointerup",u),e.addEventListener("pointercancel",u),e.addEventListener("keydown",a=>{a.key==="ArrowUp"||a.key==="ArrowRight"?(a.preventDefault(),this.stepFrequencyWithKnob(1)):(a.key==="ArrowDown"||a.key==="ArrowLeft")&&(a.preventDefault(),this.stepFrequencyWithKnob(-1))})}buildClockControls(){for(let e=0;e<3;e+=1){let t=document.createElement("div");t.className="clock-row";let s=document.createElement("input");s.type="checkbox",s.id=`clock-enable-${e}`,s.setAttribute("aria-label",`CLK${e} enable`),s.checked=e===0,s.addEventListener("change",()=>{this.send(s.checked?x(e):C(e))});let i=document.createElement("select");i.id=`drive-${e}`,i.setAttribute("aria-label",`CLK${e} drive`);for(let m of[2,4,6,8]){let u=document.createElement("option");u.value=String(m),u.textContent=`${m} mA`,i.appendChild(u)}i.value="8",i.addEventListener("change",()=>{this.send(k(e,Number(i.value)))});let r=document.createElement("input");r.type="checkbox",r.id=`filter-${e}`,r.title="Filter override",r.setAttribute("aria-label",`CLK${e} filter override`),r.addEventListener("change",()=>{this.send(F(e,r.checked))});let o=document.createElement("label");o.textContent="FLT",o.title="Filter override",o.style.margin="0",o.prepend(r);let l=document.createElement("label");l.textContent=`CLK${e}`,l.htmlFor=s.id,l.style.margin="0",t.append(s,l,i,o),this.elements.clockControls.appendChild(t)}}buildMemoryList(){this.elements.memoryList.replaceChildren();for(let e=0;e<10;e+=1){let t=document.createElement("div");t.className="memory-row",t.id=`memory-row-${e}`;let s=document.createElement("span");s.textContent=`M${e}`;let i=document.createElement("span");i.textContent="\u2014",i.id=`memory-value-${e}`;let r=document.createElement("span"),o=document.createElement("button");o.textContent="Store",o.setAttribute("aria-label",`Store M${e}`),o.addEventListener("click",()=>{this.send(O(e)),this.send(f())});let l=document.createElement("button");l.textContent="Recall",l.setAttribute("aria-label",`Recall M${e}`),l.addEventListener("click",()=>{this.send(B(e)),this.send(f())});let m=document.createElement("button");m.textContent="Clear",m.setAttribute("aria-label",`Clear M${e}`),m.addEventListener("click",()=>{window.confirm(`Clear M${e}?`)&&(this.send($(e)),this.send(f()))}),r.append(o,l,m),t.append(s,i,r),this.elements.memoryList.appendChild(t)}}async connect(){if(this.conn)return;let e=++this.connectionGeneration;try{if(this.conn=new y,await this.conn.open(),e!==this.connectionGeneration){if(this.conn){let t=await this.conn.close();t.length&&this.log("error",`Close failed: ${t.join(", ")}`)}return}if(this.closed=!1,this.versionReceived=!1,this.statusReceived=!1,this.memoryReceived=!1,this.expectMemory=0,this.memoryLines=[],this.memoryRequestPending=!1,this.memoryRefreshQueued=!1,this.memoryRequestTimeout&&(clearTimeout(this.memoryRequestTimeout),this.memoryRequestTimeout=null),this.setConnected(!0),this.log("system","Connected"),this.conn.info){let{usbVendorId:t,usbProductId:s}=this.conn.info;this.elements.portInfo.textContent=t?`USB ${t.toString(16)}:${s.toString(16)}`:"Serial port"}if(this.readLoop(),this.attachSerialDisconnectListener(),await this.initialSync(e),e!==this.connectionGeneration||!this.conn)return;this.poll=window.setInterval(()=>this.send(b()),250)}catch(t){this.log("error",t.message),await this.disconnect()}}async initialSync(e){let t=Date.now()+3e3,s=0;for(;Date.now()<t&&e===this.connectionGeneration&&this.conn;){if(this.versionReceived||this.send(D()),this.statusReceived||this.send(b()),this.statusReceived&&!this.memoryReceived&&(this.expectMemory===0||Date.now()-s>1e3)&&(this.send(f()),s=Date.now()),this.versionReceived&&this.statusReceived&&this.memoryReceived)return;await new Promise(i=>setTimeout(i,500))}}attachSerialDisconnectListener(){!p()||typeof navigator.serial.addEventListener!="function"||(this.detachSerialDisconnectListener(),this.serialDisconnectHandler=e=>{(!this.conn||e.target===this.conn.port)&&(this.log("system","Serial port disconnected"),this.disconnect())},navigator.serial.addEventListener("disconnect",this.serialDisconnectHandler))}detachSerialDisconnectListener(){this.serialDisconnectHandler&&typeof navigator.serial?.removeEventListener=="function"&&navigator.serial.removeEventListener("disconnect",this.serialDisconnectHandler),this.serialDisconnectHandler=null}async disconnect(){if(this.connectionGeneration+=1,this.poll&&(window.clearInterval(this.poll),this.poll=null),this.closed=!0,this.detachSerialDisconnectListener(),this.conn){let e=await this.conn.close();e.length&&this.log("error",`Close failed: ${e.join(", ")}`),this.conn=null}this.expectMemory=0,this.memoryLines=[],this.memoryRequestPending=!1,this.memoryRefreshQueued=!1,this.memoryRequestTimeout&&(clearTimeout(this.memoryRequestTimeout),this.memoryRequestTimeout=null),this.versionReceived=!1,this.statusReceived=!1,this.memoryReceived=!1,this.setConnected(!1),this.clearConnectionState(),this.log("system","Disconnected")}clearConnectionState(){this.elements.portInfo.textContent="",this.elements.firmwareVersion.textContent="",this.elements.statusFreq.textContent="\u2014",this.elements.statusBand.textContent="\u2014",this.elements.statusStep.textContent="\u2014",this.elements.statusMode.textContent="\u2014",this.elements.statusSi5351.textContent="\u2014",this.elements.statusOutputs.textContent="\u2014",this.elements.statusFlags.textContent="\u2014";for(let e=0;e<10;e+=1){let t=document.getElementById(`memory-value-${e}`);t&&(t.textContent="\u2014")}this.updateKnob(0)}setConnected(e){this.elements.connect.hidden=e,this.elements.disconnect.hidden=!e,this.elements.connect.disabled=!p()}send(e){if(!this.conn)return this.log("error","Not connected"),Promise.resolve();if(e==="M?"){if(this.memoryRequestPending)return this.memoryRefreshQueued=!0,this.writeChain;this.memoryRequestPending=!0,this.expectMemory=10,this.memoryLines=[],this.memoryRequestTimeout=setTimeout(()=>{this.memoryRequestPending=!1,this.expectMemory=0,this.memoryLines=[],this.memoryRefreshQueued&&(this.memoryRefreshQueued=!1,this.send("M?"))},2e3)}return this.log("sent",e),this.writeChain=this.writeChain.then(()=>this.conn.writeLine(e)).catch(t=>this.log("error",t.message)),this.writeChain}async readLoop(){try{for await(let e of this.conn.readLines())this.handleLine(e);!this.closed&&this.conn&&(this.log("error","Serial stream ended"),await this.disconnect())}catch(e){this.closed||(this.log("error",e.message),await this.disconnect())}}handleLine(e){let t=e.trim();if(t){if(t.startsWith("ERR")){this.log("error",V(t));return}if(this.log("device",t),this.expectMemory>0&&/^M\d+\s/.test(t)){this.memoryLines.push(t),this.expectMemory=Math.max(0,this.expectMemory-1),this.expectMemory===0&&(this.renderMemory(j(this.memoryLines)),this.memoryLines=[],this.memoryRequestPending=!1,this.memoryRequestTimeout&&(clearTimeout(this.memoryRequestTimeout),this.memoryRequestTimeout=null),this.memoryRefreshQueued&&(this.memoryRefreshQueued=!1,this.send("M?")));return}if(t.startsWith("F=")){try{this.renderStatus(U(t))}catch(s){this.log("error",s.message)}return}if(t.startsWith("SI5351A VFO")){this.renderVersion(Q(t));return}}}renderStatus(e){this.statusReceived=!0,this.elements.statusFreq.textContent=e.freq??"\u2014",e.freq!==null&&this.updateKnob(e.freq),this.elements.statusBand.textContent=e.band??"\u2014",this.elements.statusStep.textContent=e.step??"\u2014",this.elements.statusMode.textContent=e.mode??"\u2014",this.elements.statusSi5351.textContent=e.si5351Ok?"OK":"ERR",this.elements.statusOutputs.textContent=e.outputs.map(s=>s===null?"OFF":s).join(", ");let t=H(e.flags);this.elements.statusFlags.textContent=t.length?t.join("; "):"None",e.freq!==null&&this.setIfUnfocused(this.elements.frequency,String(e.freq)),e.step!==null&&this.setIfUnfocused(this.elements.step,String(e.step)),e.band!==null&&this.setIfUnfocused(this.elements.band,e.band),e.mode!==null&&this.setIfUnfocused(this.elements.mode,e.mode),e.ifFrequency!==null&&this.setIfUnfocused(this.elements.ifFrequency,String(e.ifFrequency)),e.injection!==null&&this.setIfUnfocused(this.elements.injection,e.injection),e.iqOrder!==null&&this.setIfUnfocused(this.elements.iqOrder,String(e.iqOrder)),e.limit!==null&&this.setIfUnfocused(this.elements.limit,e.limit),e.calibration!==null&&this.setIfUnfocused(this.elements.calibration,String(e.calibration));for(let s=0;s<3;s+=1){let i=document.getElementById(`clock-enable-${s}`),r=document.getElementById(`drive-${s}`),o=document.getElementById(`filter-${s}`);i&&document.activeElement!==i&&(i.checked=e.clockEnabled[s]),r&&this.setIfUnfocused(r,String(e.drive[s]??8)),o&&document.activeElement!==o&&(o.checked=e.filterOverride[s])}this.updateModeAvailability()}setIfUnfocused(e,t){(e.tagName==="SELECT"||document.activeElement!==e)&&(e.value=t)}renderMemory(e){this.memoryReceived=!0;for(let t of e){let s=document.getElementById(`memory-value-${t.channel}`);s&&(s.textContent=t.empty?"\u2014":`${t.freq} ${t.mode} ${t.band}`)}}renderVersion(e){this.versionReceived=!0,this.elements.firmwareVersion.textContent=e.version?`${e.product} ${e.version}`:e.product}updateModeAvailability(){let e=this.elements.mode.value;this.elements.ifFrequency.disabled=e!=="SH",this.elements.injection.disabled=e!=="SH",this.elements.iqOrder.disabled=e!=="IQ"}log(e,t){let s=document.createElement("div");for(s.textContent=`${e==="sent"?">":e==="error"?"!":"<"} ${t}`,this.elements.consoleLog.appendChild(s);this.elements.consoleLog.childElementCount>500;)this.elements.consoleLog.firstElementChild.remove();this.elements.consoleLog.scrollTop=this.elements.consoleLog.scrollHeight}};function z(){let n=new E;n.init(),window.__app=n}var re=globalThis.ENABLE_MOCK!==!1,oe=new URLSearchParams(window.location.search);re&&oe.get("mock")==="1"?Promise.resolve().then(()=>(G(),W)).then(({installMockSerial:n})=>{n(),z()}):z();})();
+
+</script>
+</body>
+</html>

@@ -197,6 +197,95 @@ test('step buttons change the tuned frequency', async () => {
   }
 });
 
+test('clamps tuning at frequency boundaries', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.locator('#frequency').evaluate((element) => {
+      element.value = '160000000';
+      element.dispatchEvent(new Event('change'));
+    });
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '160000000');
+    await page.click('#step-up');
+    await page.waitForTimeout(200);
+    assert.equal(await page.locator('#status-freq').textContent(), '160000000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 160001000')), false);
+    await page.locator('#frequency').evaluate((element) => {
+      element.value = '8000';
+      element.dispatchEvent(new Event('change'));
+    });
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '8000');
+    await page.click('#step-down');
+    await page.waitForTimeout(200);
+    assert.equal(await page.locator('#status-freq').textContent(), '8000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 7000')), false);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('blank frequency field steps from status frequency', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.locator('#frequency').evaluate((element) => {
+      element.value = '';
+      element.dispatchEvent(new Event('change'));
+    });
+    await page.click('#step-up');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7075000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 7075000')), true);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('global keyboard shortcuts step frequency', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.evaluate(() => document.activeElement && document.activeElement.blur());
+    await page.keyboard.press('=');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7075000');
+    await page.keyboard.press('-');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('knob indicator persists after pointer release', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    const box = await page.locator('#tuning-knob').boundingBox();
+    const cx = box.x + box.width / 2;
+    const cy = box.y + box.height / 2;
+    await page.mouse.move(cx + 30, cy);
+    await page.mouse.down();
+    await page.mouse.move(cx, cy + 30, { steps: 5 });
+    await page.mouse.up();
+    const transform = await page.locator('.knob-indicator').evaluate((element) => element.style.transform);
+    assert.match(transform, /rotate\(/);
+    await page.waitForTimeout(200);
+    const after = await page.locator('.knob-indicator').evaluate((element) => element.style.transform);
+    assert.equal(after, transform);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
 test('tuning knob steps with arrow keys', async () => {
   const { context, page, errors } = await newPage();
   try {
@@ -516,6 +605,22 @@ test('displays a friendly error for an unknown command', async () => {
     await page.fill('#console-input', 'NOPE');
     await page.click('#console-form button');
     await page.waitForFunction(() => document.querySelector('#console-log').textContent.includes('Unknown command'));
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('single-file build loads from file://', async () => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  try {
+    const fileUrl = new URL('../single-file.html', import.meta.url);
+    await page.goto(fileUrl.href);
+    await page.waitForFunction(() => typeof window.__app === 'object');
+    assert.equal(await page.locator('#connect').isVisible(), true);
     assert.deepEqual(errors, []);
   } finally {
     await context.close();
