@@ -123,15 +123,22 @@ class App {
       const filter = document.createElement('input');
       filter.type = 'checkbox';
       filter.id = `filter-${clk}`;
+      filter.title = 'Filter override';
       filter.addEventListener('change', () => {
         this.send(commands.filterOverride(clk, filter.checked));
       });
+
+      const filterLabel = document.createElement('label');
+      filterLabel.textContent = 'FLT';
+      filterLabel.title = 'Filter override';
+      filterLabel.style.margin = '0';
+      filterLabel.prepend(filter);
 
       const label = document.createElement('label');
       label.textContent = `CLK${clk}`;
       label.style.margin = '0';
 
-      row.append(enable, label, drive, filter);
+      row.append(enable, label, drive, filterLabel);
       this.elements.clockControls.appendChild(row);
     }
   }
@@ -258,6 +265,13 @@ class App {
       return;
     }
 
+    if (text.startsWith('ERR')) {
+      this.log('error', status.parseError(text));
+      return;
+    }
+
+    this.log('device', text);
+
     if (this.expectMemory > 0 && /^M\d+\s/.test(text)) {
       this.memoryLines.push(text);
       this.expectMemory -= 1;
@@ -281,18 +295,6 @@ class App {
       this.renderVersion(status.parseVersion(text));
       return;
     }
-
-    if (text === 'OK') {
-      this.log('device', 'OK');
-      return;
-    }
-
-    if (text.startsWith('ERR')) {
-      this.log('error', status.parseError(text));
-      return;
-    }
-
-    this.log('device', text);
   }
 
   renderStatus(state) {

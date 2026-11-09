@@ -116,7 +116,7 @@ dd {
 
 .clock-row {
   display: grid;
-  grid-template-columns: auto 1fr 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr) auto;
   gap: 0.5rem;
   align-items: center;
   padding: 0.5rem;
@@ -126,11 +126,17 @@ dd {
 
 .memory-row {
   display: grid;
-  grid-template-columns: 2rem 1fr auto;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
   gap: 0.5rem;
   align-items: center;
   padding: 0.4rem 0;
   border-bottom: 1px solid #23282f;
+}
+
+.memory-row > span:nth-child(3) {
+  display: flex;
+  gap: 0.2rem;
+  flex-wrap: nowrap;
 }
 
 .memory-row:last-child {
@@ -138,7 +144,8 @@ dd {
 }
 
 .memory-row button {
-  padding: 0.25rem 0.5rem;
+  padding: 0.2rem 0.35rem;
+  font-size: 0.75rem;
 }
 
 #console-log {
