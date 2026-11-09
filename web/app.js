@@ -21,6 +21,8 @@ class App {
     this.statusReceived = false;
     this.memoryReceived = false;
     this.serialDisconnectHandler = null;
+    this.knobRotation = 0;
+    this.knobIndicator = null;
     this.elements = {
       connect: document.getElementById('connect'),
       disconnect: document.getElementById('disconnect'),
@@ -123,11 +125,28 @@ class App {
       this.elements.consoleInput.value = '';
     });
 
+    document.addEventListener('keydown', (event) => {
+      if (event.ctrlKey || event.metaKey || event.altKey) {
+        return;
+      }
+      const tag = event.target && event.target.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') {
+        return;
+      }
+      if (event.key === '+' || event.key === '=') {
+        event.preventDefault();
+        this.stepFrequencyWithKnob(1);
+      } else if (event.key === '-' || event.key === '_') {
+        event.preventDefault();
+        this.stepFrequencyWithKnob(-1);
+      }
+    });
+
     this.buildClockControls();
     this.buildMemoryList();
     this.updateModeAvailability();
-    this.elements.stepUp.addEventListener('click', () => this.stepFrequency(1));
-    this.elements.stepDown.addEventListener('click', () => this.stepFrequency(-1));
+    this.elements.stepUp.addEventListener('click', () => this.stepFrequencyWithKnob(1));
+    this.elements.stepDown.addEventListener('click', () => this.stepFrequencyWithKnob(-1));
     this.setupTuningKnob();
   }
 
@@ -143,6 +162,9 @@ class App {
   }
 
   stepFrequency(direction) {
+    if (!this.conn) {
+      return false;
+    }
     let freq = Number(this.elements.frequency.value);
     if (!Number.isFinite(freq)) {
       freq = Number(this.elements.statusFreq.textContent);
@@ -150,12 +172,30 @@ class App {
     const step = Number(this.elements.step.value) || 1000;
     const next = freq + direction * step;
     if (!this.validNumber(this.elements.frequency, next, 8000, 160000000)) {
-      return;
+      return false;
     }
     this.elements.frequency.value = String(next);
     this.elements.statusFreq.textContent = String(next);
     this.send(commands.frequency(next));
     this.updateKnob(next);
+    return true;
+  }
+
+  stepFrequencyWithKnob(direction) {
+    if (this.stepFrequency(direction)) {
+      this.rotateKnob(direction);
+    }
+  }
+
+  rotateKnob(direction) {
+    this.knobRotation = (this.knobRotation || 0) + direction * 15;
+    this.applyKnobRotation();
+  }
+
+  applyKnobRotation() {
+    if (this.knobIndicator) {
+      this.knobIndicator.style.transform = `rotate(${this.knobRotation}deg)`;
+    }
   }
 
   updateKnob(value) {
@@ -168,7 +208,7 @@ class App {
   setupTuningKnob() {
     const knob = this.elements.tuningKnob;
     if (!knob) return;
-    const indicator = knob.querySelector('.knob-indicator');
+    this.knobIndicator = knob.querySelector('.knob-indicator');
     let dragging = false;
     let lastAngle = 0;
     let accum = 0;
@@ -193,7 +233,8 @@ class App {
       if (delta < -180) delta += 360;
       accum += delta;
       lastAngle = angle;
-      if (indicator) indicator.style.transform = `rotate(${angle}deg)`;
+      this.knobRotation = angle;
+      this.applyKnobRotation();
       while (accum >= threshold) { this.stepFrequency(1); accum -= threshold; }
       while (accum <= -threshold) { this.stepFrequency(-1); accum += threshold; }
     };
@@ -209,10 +250,10 @@ class App {
     knob.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
         event.preventDefault();
-        this.stepFrequency(1);
+        this.stepFrequencyWithKnob(1);
       } else if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
         event.preventDefault();
-        this.stepFrequency(-1);
+        this.stepFrequencyWithKnob(-1);
       }
     });
   }
