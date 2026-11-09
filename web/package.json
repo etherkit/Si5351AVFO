@@ -1,0 +1,12 @@
+{
+  "name": "si5351avfo-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/commands.test.mjs tests/status.test.mjs tests/serial.test.mjs",
+    "test:browser": "node --test tests/browser.test.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.49.0"
+  }
+}
