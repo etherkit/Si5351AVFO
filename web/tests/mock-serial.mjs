@@ -72,6 +72,7 @@ export function installMockSerial() {
     }
 
     _handleCommand(line) {
+      this._applyCommandToStatus(line);
       const response = this._responseFor(line);
       if (response === null) {
         return;
@@ -79,6 +80,44 @@ export function installMockSerial() {
       const text = Array.isArray(response) ? `${response.join('\r\n')}\r\n` : `${response}\r\n`;
       this._queue.push(text);
       this._maybeEnqueue();
+    }
+
+    _applyCommandToStatus(line) {
+      const text = line.trim();
+      const updates = [
+        [/^F\s+(\d+)$/i, 'F'],
+        [/^STEP\s+(\d+)$/i, 'STEP'],
+        [/^BAND\s+(\S+)$/i, 'BAND'],
+        [/^MODE\s+(\S+)$/i, 'MODE'],
+        [/^IF\s+(\d+)$/i, 'IF'],
+        [/^INJ\s+(\S+)$/i, 'INJ'],
+        [/^IQ\s+(\d+)$/i, 'IQ'],
+        [/^LIMIT\s+(\S+)$/i, 'LIMIT'],
+        [/^CAL\s+(-?\d+)$/i, 'CAL']
+      ];
+      for (const [pattern, key] of updates) {
+        const match = pattern.exec(text);
+        if (match) {
+          this._updateStatusField(key, match[1]);
+        }
+      }
+    }
+
+    _updateStatusField(key, value) {
+      const pattern = new RegExp(`${key}=(\\S+)`);
+      if (pattern.test(this.status)) {
+        this.status = this.status.replace(pattern, `${key}=${value}`);
+      } else {
+        this.status += ` ${key}=${value}`;
+      }
+      if (key === 'F') {
+        const outMatch = /OUT=(\S+)/.exec(this.status);
+        if (outMatch) {
+          const parts = outMatch[1].split(',');
+          parts[0] = value;
+          this.status = this.status.replace(/OUT=\S+/, `OUT=${parts.join(',')}`);
+        }
+      }
     }
 
     _maybeEnqueue() {

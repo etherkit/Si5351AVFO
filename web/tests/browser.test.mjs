@@ -179,6 +179,41 @@ test('sends an arbitrary console command and displays its reply', async () => {
   }
 });
 
+test('step buttons change the tuned frequency', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.click('#step-up');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7075000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 7075000')), true);
+    await page.click('#step-down');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 7074000')), true);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('tuning knob steps with arrow keys', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.locator('#tuning-knob').focus();
+    await page.keyboard.press('ArrowUp');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7075000');
+    await page.keyboard.press('ArrowDown');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
 test('disconnects and reconnects cleanly', async () => {
   const { context, page, errors } = await newPage();
   try {

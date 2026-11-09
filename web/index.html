@@ -22,10 +22,37 @@
       This browser does not support Web Serial. Use Chrome or Edge on desktop.
     </section>
 
-    <section id="status-panel">
+    <section id="hero-panel" class="hero">
+      <div id="freq-display" aria-live="polite">
+        <span id="status-freq" class="freq-value">—</span>
+        <span class="freq-unit">Hz</span>
+      </div>
+      <div id="tuning-controls">
+        <button id="step-down" type="button" aria-label="Step frequency down">−</button>
+        <div id="tuning-knob" class="knob" role="slider" tabindex="0"
+             aria-label="Tuning knob" aria-valuemin="8000" aria-valuemax="160000000"
+             aria-valuenow="0" aria-valuetext="—">
+          <span class="knob-indicator" aria-hidden="true"></span>
+        </div>
+        <button id="step-up" type="button" aria-label="Step frequency up">+</button>
+      </div>
+      <div id="tuning-step">
+        <label>Step
+          <select id="step">
+            <option value="100000">100 kHz</option>
+            <option value="10000">10 kHz</option>
+            <option value="1000">1 kHz</option>
+            <option value="500">500 Hz</option>
+            <option value="100">100 Hz</option>
+            <option value="10">10 Hz</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section id="status-panel" class="secondary">
       <h2>Status</h2>
       <dl>
-        <dt>Frequency</dt><dd id="status-freq">—</dd>
         <dt>Band</dt><dd id="status-band">—</dd>
         <dt>Step</dt><dd id="status-step">—</dd>
         <dt>Mode</dt><dd id="status-mode">—</dd>
@@ -39,16 +66,6 @@
       <h2>Tuning</h2>
       <label>Frequency (Hz)
         <input id="frequency" type="number" min="8000" max="160000000" step="1">
-      </label>
-      <label>Step
-        <select id="step">
-          <option value="100000">100 kHz</option>
-          <option value="10000">10 kHz</option>
-          <option value="1000">1 kHz</option>
-          <option value="500">500 Hz</option>
-          <option value="100">100 Hz</option>
-          <option value="10">10 Hz</option>
-        </select>
       </label>
       <label>Band
         <select id="band">

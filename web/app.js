@@ -1,3 +1,9 @@
+const params = new URLSearchParams(window.location.search);
+if (params.get('mock') === '1') {
+  const { installMockSerial } = await import('./tests/mock-serial.mjs');
+  installMockSerial();
+}
+
 import * as commands from './commands.js';
 import * as status from './status.js';
 import { SerialConnection, browserSupportsWebSerial } from './serial.js';
@@ -30,6 +36,9 @@ class App {
       statusFlags: document.getElementById('status-flags'),
       frequency: document.getElementById('frequency'),
       step: document.getElementById('step'),
+      stepUp: document.getElementById('step-up'),
+      stepDown: document.getElementById('step-down'),
+      tuningKnob: document.getElementById('tuning-knob'),
       band: document.getElementById('band'),
       mode: document.getElementById('mode'),
       ifFrequency: document.getElementById('if'),
@@ -113,6 +122,9 @@ class App {
     this.buildClockControls();
     this.buildMemoryList();
     this.updateModeAvailability();
+    this.elements.stepUp.addEventListener('click', () => this.stepFrequency(1));
+    this.elements.stepDown.addEventListener('click', () => this.stepFrequency(-1));
+    this.setupTuningKnob();
   }
 
   validNumber(element, value, min, max) {
@@ -122,6 +134,82 @@ class App {
       return false;
     }
     return true;
+  }
+
+  stepFrequency(direction) {
+    let freq = Number(this.elements.frequency.value);
+    if (!Number.isFinite(freq)) {
+      freq = Number(this.elements.statusFreq.textContent);
+    }
+    const step = Number(this.elements.step.value) || 1000;
+    const next = freq + direction * step;
+    if (!this.validNumber(this.elements.frequency, next, 8000, 160000000)) {
+      return;
+    }
+    this.elements.frequency.value = String(next);
+    this.elements.statusFreq.textContent = String(next);
+    this.send(commands.frequency(next));
+    this.updateKnob(next);
+  }
+
+  updateKnob(value) {
+    const knob = this.elements.tuningKnob;
+    if (!knob) return;
+    knob.setAttribute('aria-valuenow', String(value));
+    knob.setAttribute('aria-valuetext', `${value} Hz`);
+  }
+
+  setupTuningKnob() {
+    const knob = this.elements.tuningKnob;
+    if (!knob) return;
+    const indicator = knob.querySelector('.knob-indicator');
+    let dragging = false;
+    let lastAngle = 0;
+    let accum = 0;
+    const threshold = 15;
+    const angleOf = (event) => {
+      const rect = knob.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      return Math.atan2(event.clientY - cy, event.clientX - cx) * 180 / Math.PI;
+    };
+    const onDown = (event) => {
+      dragging = true;
+      accum = 0;
+      lastAngle = angleOf(event);
+      try { knob.setPointerCapture(event.pointerId); } catch (e) { /* ignore */ }
+    };
+    const onMove = (event) => {
+      if (!dragging) return;
+      const angle = angleOf(event);
+      let delta = angle - lastAngle;
+      if (delta > 180) delta -= 360;
+      if (delta < -180) delta += 360;
+      accum += delta;
+      lastAngle = angle;
+      if (indicator) indicator.style.transform = `rotate(${angle}deg)`;
+      while (accum >= threshold) { this.stepFrequency(1); accum -= threshold; }
+      while (accum <= -threshold) { this.stepFrequency(-1); accum += threshold; }
+    };
+    const onUp = (event) => {
+      dragging = false;
+      accum = 0;
+      if (indicator) indicator.style.transform = '';
+      try { knob.releasePointerCapture(event.pointerId); } catch (e) { /* ignore */ }
+    };
+    knob.addEventListener('pointerdown', onDown);
+    knob.addEventListener('pointermove', onMove);
+    knob.addEventListener('pointerup', onUp);
+    knob.addEventListener('pointercancel', onUp);
+    knob.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowUp' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        this.stepFrequency(1);
+      } else if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') {
+        event.preventDefault();
+        this.stepFrequency(-1);
+      }
+    });
   }
 
   buildClockControls() {
@@ -389,6 +477,7 @@ class App {
   renderStatus(state) {
     this.statusReceived = true;
     this.elements.statusFreq.textContent = state.freq ?? '—';
+    if (state.freq !== null) this.updateKnob(state.freq);
     this.elements.statusBand.textContent = state.band ?? '—';
     this.elements.statusStep.textContent = state.step ?? '—';
     this.elements.statusMode.textContent = state.mode ?? '—';
