@@ -200,7 +200,6 @@ class App {
     const onUp = (event) => {
       dragging = false;
       accum = 0;
-      if (indicator) indicator.style.transform = '';
       try { knob.releasePointerCapture(event.pointerId); } catch (e) { /* ignore */ }
     };
     knob.addEventListener('pointerdown', onDown);
