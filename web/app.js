@@ -1,9 +1,3 @@
-const params = new URLSearchParams(window.location.search);
-if (params.get('mock') === '1') {
-  const { installMockSerial } = await import('./tests/mock-serial.mjs');
-  installMockSerial();
-}
-
 import * as commands from './commands.js';
 import * as status from './status.js';
 import { SerialConnection, browserSupportsWebSerial } from './serial.js';
@@ -169,9 +163,12 @@ class App {
     if (!Number.isFinite(freq)) {
       freq = Number(this.elements.statusFreq.textContent);
     }
+    if (!Number.isFinite(freq)) {
+      return false;
+    }
     const step = Number(this.elements.step.value) || 1000;
-    const next = freq + direction * step;
-    if (!this.validNumber(this.elements.frequency, next, 8000, 160000000)) {
+    const next = Math.min(160000000, Math.max(8000, freq + direction * step));
+    if (!Number.isInteger(next) || next === freq) {
       return false;
     }
     this.elements.frequency.value = String(next);
@@ -638,6 +635,18 @@ class App {
   }
 }
 
-const app = new App();
-app.init();
-window.__app = app;
+function boot() {
+  const app = new App();
+  app.init();
+  window.__app = app;
+}
+
+const params = new URLSearchParams(window.location.search);
+if (params.get('mock') === '1') {
+  import('./tests/mock-serial.mjs').then(({ installMockSerial }) => {
+    installMockSerial();
+    boot();
+  });
+} else {
+  boot();
+}

@@ -197,6 +197,36 @@ test('step buttons change the tuned frequency', async () => {
   }
 });
 
+test('clamps tuning at frequency boundaries', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.locator('#frequency').evaluate((element) => {
+      element.value = '160000000';
+      element.dispatchEvent(new Event('change'));
+    });
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '160000000');
+    await page.click('#step-up');
+    await page.waitForTimeout(200);
+    assert.equal(await page.locator('#status-freq').textContent(), '160000000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 160001000')), false);
+    await page.locator('#frequency').evaluate((element) => {
+      element.value = '8000';
+      element.dispatchEvent(new Event('change'));
+    });
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '8000');
+    await page.click('#step-down');
+    await page.waitForTimeout(200);
+    assert.equal(await page.locator('#status-freq').textContent(), '8000');
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 7000')), false);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
 test('tuning knob steps with arrow keys', async () => {
   const { context, page, errors } = await newPage();
   try {

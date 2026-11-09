@@ -4,9 +4,11 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/commands.test.mjs tests/status.test.mjs tests/serial.test.mjs",
-    "test:browser": "node --test tests/browser.test.mjs"
+    "test:browser": "node --test tests/browser.test.mjs",
+    "build:single": "node build-single-file.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "playwright": "^1.49.0"
   }
 }
