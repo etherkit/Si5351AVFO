@@ -9,6 +9,9 @@ class App {
     this.writeChain = Promise.resolve();
     this.expectMemory = 0;
     this.memoryLines = [];
+    this.memoryRequestPending = false;
+    this.memoryRefreshQueued = false;
+    this.memoryRequestTimeout = null;
     this.closed = false;
     this.connectionGeneration = 0;
     this.versionReceived = false;
@@ -160,7 +163,7 @@ class App {
       return false;
     }
     let freq = Number(this.elements.frequency.value);
-    if (!Number.isFinite(freq)) {
+    if (this.elements.frequency.value.trim() === '' || !Number.isFinite(freq) || freq < 8000 || freq > 160000000) {
       freq = Number(this.elements.statusFreq.textContent);
     }
     if (!Number.isFinite(freq)) {
@@ -375,6 +378,12 @@ class App {
       this.memoryReceived = false;
       this.expectMemory = 0;
       this.memoryLines = [];
+      this.memoryRequestPending = false;
+      this.memoryRefreshQueued = false;
+      if (this.memoryRequestTimeout) {
+        clearTimeout(this.memoryRequestTimeout);
+        this.memoryRequestTimeout = null;
+      }
       this.setConnected(true);
       this.log('system', 'Connected');
       if (this.conn.info) {
@@ -455,6 +464,12 @@ class App {
     }
     this.expectMemory = 0;
     this.memoryLines = [];
+    this.memoryRequestPending = false;
+    this.memoryRefreshQueued = false;
+    if (this.memoryRequestTimeout) {
+      clearTimeout(this.memoryRequestTimeout);
+      this.memoryRequestTimeout = null;
+    }
     this.versionReceived = false;
     this.statusReceived = false;
     this.memoryReceived = false;
@@ -492,8 +507,22 @@ class App {
       return Promise.resolve();
     }
     if (line === 'M?') {
+      if (this.memoryRequestPending) {
+        this.memoryRefreshQueued = true;
+        return this.writeChain;
+      }
+      this.memoryRequestPending = true;
       this.expectMemory = 10;
       this.memoryLines = [];
+      this.memoryRequestTimeout = setTimeout(() => {
+        this.memoryRequestPending = false;
+        this.expectMemory = 0;
+        this.memoryLines = [];
+        if (this.memoryRefreshQueued) {
+          this.memoryRefreshQueued = false;
+          this.send('M?');
+        }
+      }, 2000);
     }
     this.log('sent', line);
     this.writeChain = this.writeChain
@@ -538,6 +567,15 @@ class App {
       if (this.expectMemory === 0) {
         this.renderMemory(status.parseMemoryList(this.memoryLines));
         this.memoryLines = [];
+        this.memoryRequestPending = false;
+        if (this.memoryRequestTimeout) {
+          clearTimeout(this.memoryRequestTimeout);
+          this.memoryRequestTimeout = null;
+        }
+        if (this.memoryRefreshQueued) {
+          this.memoryRefreshQueued = false;
+          this.send('M?');
+        }
       }
       return;
     }
@@ -641,8 +679,9 @@ function boot() {
   window.__app = app;
 }
 
+const ENABLE_MOCK = globalThis.ENABLE_MOCK !== false;
 const params = new URLSearchParams(window.location.search);
-if (params.get('mock') === '1') {
+if (ENABLE_MOCK && params.get('mock') === '1') {
   import('./tests/mock-serial.mjs').then(({ installMockSerial }) => {
     installMockSerial();
     boot();

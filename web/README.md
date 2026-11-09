@@ -17,13 +17,15 @@ Click **Connect** and choose the CP2102N serial port.
 or install required.
 
 1. Download [`single-file.html`](single-file.html) from this directory (or from
-   <https://etherkit.github.io/Si5351AVFO/single-file.html>).
+   <https://etherkit.github.io/Si5351AVFO/single-file.html> once this change is
+   merged).
 2. Save it anywhere.
 3. Open it in Chrome or Edge on desktop.
 4. Click **Connect** and choose the device.
 
-To try the UI without hardware, open the file with `?mock=1` appended to the
-file name, e.g. `single-file.html?mock=1`.
+To try the UI without hardware, use the live site or the local dev server with
+`?mock=1` appended to the URL. The single-file build does not include the mock
+serial port; use it with real hardware.
 
 ## Browser requirements
 
@@ -66,11 +68,14 @@ npm install
 npm test
 npm run test:browser
 npm run build:single
+npm run check:single
 ```
 
-`npm test` covers command encoding, status parsing, and serial framing.
+`npm test` covers command encoding, status parsing, serial framing, and the
+single-file artifact.
 `npm run test:browser` covers the UI with a mock `navigator.serial`.
 `npm run build:single` regenerates `single-file.html` using esbuild.
+`npm run check:single` verifies the committed `single-file.html` is up to date.
 
 If Playwright cannot find a browser, set `CHROME_PATH` to a Chromium executable:
 
