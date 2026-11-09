@@ -10,6 +10,11 @@ class App {
     this.expectMemory = 0;
     this.memoryLines = [];
     this.closed = false;
+    this.connectionGeneration = 0;
+    this.versionReceived = false;
+    this.statusReceived = false;
+    this.memoryReceived = false;
+    this.serialDisconnectHandler = null;
     this.elements = {
       connect: document.getElementById('connect'),
       disconnect: document.getElementById('disconnect'),
@@ -21,6 +26,8 @@ class App {
       statusStep: document.getElementById('status-step'),
       statusMode: document.getElementById('status-mode'),
       statusSi5351: document.getElementById('status-si5351'),
+      statusOutputs: document.getElementById('status-outputs'),
+      statusFlags: document.getElementById('status-flags'),
       frequency: document.getElementById('frequency'),
       step: document.getElementById('step'),
       band: document.getElementById('band'),
@@ -46,11 +53,15 @@ class App {
       this.elements.unsupported.hidden = false;
       this.elements.connect.disabled = true;
     }
+    this.elements.consoleInput.setAttribute('aria-label', 'Console command');
 
     this.elements.connect.addEventListener('click', () => this.connect());
     this.elements.disconnect.addEventListener('click', () => this.disconnect());
     this.elements.frequency.addEventListener('change', () => {
-      this.send(commands.frequency(Number(this.elements.frequency.value)));
+      const value = Number(this.elements.frequency.value);
+      if (this.validNumber(this.elements.frequency, value, 8000, 160000000)) {
+        this.send(commands.frequency(value));
+      }
     });
     this.elements.step.addEventListener('change', () => {
       this.send(commands.step(Number(this.elements.step.value)));
@@ -63,7 +74,10 @@ class App {
       this.updateModeAvailability();
     });
     this.elements.ifFrequency.addEventListener('change', () => {
-      this.send(commands.ifFrequency(Number(this.elements.ifFrequency.value)));
+      const value = Number(this.elements.ifFrequency.value);
+      if (this.validNumber(this.elements.ifFrequency, value, 8000, 160000000)) {
+        this.send(commands.ifFrequency(value));
+      }
     });
     this.elements.injection.addEventListener('change', () => {
       this.send(commands.injection(this.elements.injection.value));
@@ -75,11 +89,18 @@ class App {
       this.send(commands.limit(this.elements.limit.value));
     });
     this.elements.calibration.addEventListener('change', () => {
-      this.send(commands.calibration(Number(this.elements.calibration.value)));
+      const value = Number(this.elements.calibration.value);
+      if (this.validNumber(this.elements.calibration, value, -999999, 999999)) {
+        this.send(commands.calibration(value));
+      }
     });
     this.elements.save.addEventListener('click', () => this.send(commands.save()));
     this.elements.reset.addEventListener('click', () => this.send(commands.reset()));
-    this.elements.factoryReset.addEventListener('click', () => this.send(commands.factoryReset()));
+    this.elements.factoryReset.addEventListener('click', () => {
+      if (window.confirm('Factory reset will erase calibration and all memories. Continue?')) {
+        this.send(commands.factoryReset());
+      }
+    });
     this.elements.consoleForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const line = this.elements.consoleInput.value.trim();
@@ -94,6 +115,15 @@ class App {
     this.updateModeAvailability();
   }
 
+  validNumber(element, value, min, max) {
+    if (!Number.isInteger(value) || value < min || value > max) {
+      this.log('error', `${element.id} must be an integer between ${min} and ${max}`);
+      element.focus();
+      return false;
+    }
+    return true;
+  }
+
   buildClockControls() {
     for (let clk = 0; clk < 3; clk += 1) {
       const row = document.createElement('div');
@@ -102,6 +132,7 @@ class App {
       const enable = document.createElement('input');
       enable.type = 'checkbox';
       enable.id = `clock-enable-${clk}`;
+      enable.setAttribute('aria-label', `CLK${clk} enable`);
       enable.checked = clk === 0;
       enable.addEventListener('change', () => {
         this.send(enable.checked ? commands.clockOn(clk) : commands.clockOff(clk));
@@ -109,6 +140,7 @@ class App {
 
       const drive = document.createElement('select');
       drive.id = `drive-${clk}`;
+      drive.setAttribute('aria-label', `CLK${clk} drive`);
       for (const value of [2, 4, 6, 8]) {
         const option = document.createElement('option');
         option.value = String(value);
@@ -124,6 +156,7 @@ class App {
       filter.type = 'checkbox';
       filter.id = `filter-${clk}`;
       filter.title = 'Filter override';
+      filter.setAttribute('aria-label', `CLK${clk} filter override`);
       filter.addEventListener('change', () => {
         this.send(commands.filterOverride(clk, filter.checked));
       });
@@ -159,18 +192,21 @@ class App {
       const actions = document.createElement('span');
       const store = document.createElement('button');
       store.textContent = 'Store';
+      store.setAttribute('aria-label', `Store M${channel}`);
       store.addEventListener('click', () => {
         this.send(commands.memoryStore(channel));
         this.send(commands.memoryList());
       });
       const recall = document.createElement('button');
       recall.textContent = 'Recall';
+      recall.setAttribute('aria-label', `Recall M${channel}`);
       recall.addEventListener('click', () => {
         this.send(commands.memoryRecall(channel));
         this.send(commands.memoryList());
       });
       const clear = document.createElement('button');
       clear.textContent = 'Clear';
+      clear.setAttribute('aria-label', `Clear M${channel}`);
       clear.addEventListener('click', () => {
         this.send(commands.memoryClear(channel));
         this.send(commands.memoryList());
@@ -186,10 +222,18 @@ class App {
     if (this.conn) {
       return;
     }
+    const generation = ++this.connectionGeneration;
     try {
       this.conn = new SerialConnection();
       await this.conn.open();
+      if (generation !== this.connectionGeneration) {
+        await this.conn.close();
+        return;
+      }
       this.closed = false;
+      this.versionReceived = false;
+      this.statusReceived = false;
+      this.memoryReceived = false;
       this.setConnected(true);
       this.log('system', 'Connected');
       if (this.conn.info) {
@@ -199,10 +243,11 @@ class App {
           : 'Serial port';
       }
       this.readLoop();
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      this.send(commands.version());
-      this.send(commands.status());
-      this.send(commands.memoryList());
+      this.attachSerialDisconnectListener();
+      await this.initialSync(generation);
+      if (generation !== this.connectionGeneration || !this.conn) {
+        return;
+      }
       this.poll = window.setInterval(() => this.send(commands.status()), 250);
     } catch (error) {
       this.log('error', error.message);
@@ -210,12 +255,51 @@ class App {
     }
   }
 
+  async initialSync(generation) {
+    const deadline = Date.now() + 3000;
+    while (Date.now() < deadline && generation === this.connectionGeneration && this.conn) {
+      if (!this.versionReceived) {
+        this.send(commands.version());
+      } else if (!this.statusReceived) {
+        this.send(commands.status());
+      } else if (!this.memoryReceived) {
+        this.send(commands.memoryList());
+      } else {
+        return;
+      }
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+  }
+
+  attachSerialDisconnectListener() {
+    if (!browserSupportsWebSerial() || typeof navigator.serial.addEventListener !== 'function') {
+      return;
+    }
+    this.detachSerialDisconnectListener();
+    this.serialDisconnectHandler = (event) => {
+      if (!this.conn || event.target === this.conn.port) {
+        this.log('system', 'Serial port disconnected');
+        this.disconnect();
+      }
+    };
+    navigator.serial.addEventListener('disconnect', this.serialDisconnectHandler);
+  }
+
+  detachSerialDisconnectListener() {
+    if (this.serialDisconnectHandler && typeof navigator.serial?.removeEventListener === 'function') {
+      navigator.serial.removeEventListener('disconnect', this.serialDisconnectHandler);
+    }
+    this.serialDisconnectHandler = null;
+  }
+
   async disconnect() {
+    this.connectionGeneration += 1;
     if (this.poll) {
       window.clearInterval(this.poll);
       this.poll = null;
     }
     this.closed = true;
+    this.detachSerialDisconnectListener();
     if (this.conn) {
       await this.conn.close();
       this.conn = null;
@@ -237,7 +321,7 @@ class App {
       return Promise.resolve();
     }
     if (line === 'M?') {
-      this.expectMemory = 10;
+      this.expectMemory += 10;
       this.memoryLines = [];
     }
     this.log('sent', line);
@@ -252,9 +336,14 @@ class App {
       for await (const line of this.conn.readLines()) {
         this.handleLine(line);
       }
+      if (!this.closed && this.conn) {
+        this.log('error', 'Serial stream ended');
+        await this.disconnect();
+      }
     } catch (error) {
       if (!this.closed) {
         this.log('error', error.message);
+        await this.disconnect();
       }
     }
   }
@@ -298,35 +387,48 @@ class App {
   }
 
   renderStatus(state) {
+    this.statusReceived = true;
     this.elements.statusFreq.textContent = state.freq ?? '—';
     this.elements.statusBand.textContent = state.band ?? '—';
     this.elements.statusStep.textContent = state.step ?? '—';
     this.elements.statusMode.textContent = state.mode ?? '—';
     this.elements.statusSi5351.textContent = state.si5351Ok ? 'OK' : 'ERR';
+    this.elements.statusOutputs.textContent = state.outputs
+      .map((value) => (value === null ? 'OFF' : value))
+      .join(', ');
+    const warnings = status.decodeFlags(state.flags);
+    this.elements.statusFlags.textContent = warnings.length ? warnings.join('; ') : 'None';
 
-    if (state.freq !== null) this.elements.frequency.value = String(state.freq);
-    if (state.step !== null) this.elements.step.value = String(state.step);
-    if (state.band !== null) this.elements.band.value = state.band;
-    if (state.mode !== null) this.elements.mode.value = state.mode;
-    if (state.ifFrequency !== null) this.elements.ifFrequency.value = String(state.ifFrequency);
-    if (state.injection !== null) this.elements.injection.value = state.injection;
-    if (state.iqOrder !== null) this.elements.iqOrder.value = String(state.iqOrder);
-    if (state.limit !== null) this.elements.limit.value = state.limit;
-    if (state.calibration !== null) this.elements.calibration.value = String(state.calibration);
+    if (state.freq !== null) this.setIfUnfocused(this.elements.frequency, String(state.freq));
+    if (state.step !== null) this.setIfUnfocused(this.elements.step, String(state.step));
+    if (state.band !== null) this.setIfUnfocused(this.elements.band, state.band);
+    if (state.mode !== null) this.setIfUnfocused(this.elements.mode, state.mode);
+    if (state.ifFrequency !== null) this.setIfUnfocused(this.elements.ifFrequency, String(state.ifFrequency));
+    if (state.injection !== null) this.setIfUnfocused(this.elements.injection, state.injection);
+    if (state.iqOrder !== null) this.setIfUnfocused(this.elements.iqOrder, String(state.iqOrder));
+    if (state.limit !== null) this.setIfUnfocused(this.elements.limit, state.limit);
+    if (state.calibration !== null) this.setIfUnfocused(this.elements.calibration, String(state.calibration));
 
     for (let clk = 0; clk < 3; clk += 1) {
       const enable = document.getElementById(`clock-enable-${clk}`);
       const drive = document.getElementById(`drive-${clk}`);
       const filter = document.getElementById(`filter-${clk}`);
-      if (enable) enable.checked = state.clockEnabled[clk];
-      if (drive) drive.value = String(state.drive[clk] ?? 8);
-      if (filter) filter.checked = state.filterOverride[clk];
+      if (enable && document.activeElement !== enable) enable.checked = state.clockEnabled[clk];
+      if (drive && document.activeElement !== drive) drive.value = String(state.drive[clk] ?? 8);
+      if (filter && document.activeElement !== filter) filter.checked = state.filterOverride[clk];
     }
 
     this.updateModeAvailability();
   }
 
+  setIfUnfocused(element, value) {
+    if (document.activeElement !== element) {
+      element.value = value;
+    }
+  }
+
   renderMemory(memories) {
+    this.memoryReceived = true;
     for (const memory of memories) {
       const value = document.getElementById(`memory-value-${memory.channel}`);
       if (!value) continue;
@@ -337,6 +439,7 @@ class App {
   }
 
   renderVersion(version) {
+    this.versionReceived = true;
     this.elements.firmwareVersion.textContent = version.version
       ? `${version.product} ${version.version}`
       : version.product;

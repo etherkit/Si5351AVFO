@@ -124,3 +124,17 @@ export function parseError(line) {
   }
   return text;
 }
+
+const PLAN_FLAGS = {
+  0x01: 'IQ low: CLK0/CLK1 muted',
+  0x02: 'LO out of range: CLK0 muted',
+  0x04: 'LPF limit: clock muted',
+  0x08: 'IQ high: CLK0/CLK1 muted',
+  0x10: 'Si5351 refused a clock'
+};
+
+export function decodeFlags(flags) {
+  return Object.entries(PLAN_FLAGS)
+    .filter(([bit]) => flags & Number(bit))
+    .map(([, message]) => message);
+}

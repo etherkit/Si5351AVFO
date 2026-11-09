@@ -88,12 +88,17 @@ export class SerialConnection {
 
   async close() {
     this._closed = true;
-    try {
-      if (this.reader) {
+    if (this.reader) {
+      try {
         await this.reader.cancel();
+      } catch {
+        // Ignore cancel errors during close.
       }
-    } catch {
-      // Ignore cancel errors during close.
+      try {
+        this.reader.releaseLock();
+      } catch {
+        // Ignore release errors during close.
+      }
     }
     try {
       if (this.writer) {
