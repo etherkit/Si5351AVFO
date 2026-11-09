@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Si5351AVFO Control</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Si5351AVFO</h1>
+    <div id="connection">
+      <button id="connect">Connect</button>
+      <button id="disconnect" hidden>Disconnect</button>
+      <span id="port-info"></span>
+      <span id="firmware-version"></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="unsupported" hidden>
+      This browser does not support Web Serial. Use Chrome or Edge on desktop.
+    </section>
+
+    <section id="hero-panel" class="hero">
+      <div id="freq-display" aria-live="polite">
+        <span id="status-freq" class="freq-value">—</span>
+        <span class="freq-unit">Hz</span>
+      </div>
+      <div id="tuning-controls">
+        <button id="step-down" type="button" aria-label="Step frequency down">−</button>
+        <div id="tuning-knob" class="knob" role="slider" tabindex="0"
+             aria-label="Tuning knob" aria-valuemin="8000" aria-valuemax="160000000"
+             aria-valuenow="0" aria-valuetext="—">
+          <span class="knob-indicator" aria-hidden="true"></span>
+        </div>
+        <button id="step-up" type="button" aria-label="Step frequency up">+</button>
+      </div>
+      <div id="tuning-step">
+        <label>Step
+          <select id="step">
+            <option value="100000">100 kHz</option>
+            <option value="10000">10 kHz</option>
+            <option value="1000">1 kHz</option>
+            <option value="500">500 Hz</option>
+            <option value="100">100 Hz</option>
+            <option value="10">10 Hz</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section id="status-panel" class="secondary">
+      <h2>Status</h2>
+      <dl>
+        <dt>Band</dt><dd id="status-band">—</dd>
+        <dt>Step</dt><dd id="status-step">—</dd>
+        <dt>Mode</dt><dd id="status-mode">—</dd>
+        <dt>Si5351</dt><dd id="status-si5351">—</dd>
+        <dt>Outputs</dt><dd id="status-outputs" aria-live="polite">—</dd>
+        <dt>Plan flags</dt><dd id="status-flags" aria-live="polite">—</dd>
+      </dl>
+    </section>
+
+    <section id="tuning-panel">
+      <h2>Tuning</h2>
+      <label>Frequency (Hz)
+        <input id="frequency" type="number" min="8000" max="160000000" step="1">
+      </label>
+      <label>Band
+        <select id="band">
+          <option>160M</option>
+          <option>80M</option>
+          <option>60M</option>
+          <option>40M</option>
+          <option>30M</option>
+          <option>20M</option>
+          <option>17M</option>
+          <option>15M</option>
+          <option>12M</option>
+          <option>10M</option>
+          <option>6M</option>
+          <option>4M</option>
+          <option>2M</option>
+        </select>
+      </label>
+      <label>Mode
+        <select id="mode">
+          <option value="DIR">Direct</option>
+          <option value="SH">Superhet</option>
+          <option value="IQ">Quadrature</option>
+        </select>
+      </label>
+    </section>
+
+    <section id="outputs-panel">
+      <h2>Outputs</h2>
+      <div id="clock-controls"></div>
+    </section>
+
+    <section id="superhet-panel">
+      <h2>Superhet / quadrature</h2>
+      <label>IF (Hz)
+        <input id="if" type="number" min="8000" max="160000000" step="1">
+      </label>
+      <label>Injection
+        <select id="injection">
+          <option value="HI">High</option>
+          <option value="LO">Low</option>
+        </select>
+      </label>
+      <label>I/Q order
+        <select id="iq-order">
+          <option value="0">CLK0 = I</option>
+          <option value="1">CLK1 = I</option>
+        </select>
+      </label>
+      <label>Tuning limit
+        <select id="limit">
+          <option value="HAM">Amateur only</option>
+          <option value="WIDE">Wide open</option>
+        </select>
+      </label>
+    </section>
+
+    <section id="memory-panel">
+      <h2>Memories</h2>
+      <div id="memory-list"></div>
+    </section>
+
+    <section id="settings-panel">
+      <h2>Settings</h2>
+      <label>Calibration (ppb)
+        <input id="calibration" type="number" min="-999999" max="999999" step="1">
+      </label>
+      <button id="save">Save now</button>
+      <button id="reset">Reset settings</button>
+      <button id="factory-reset">Factory reset</button>
+    </section>
+
+    <section id="console-panel">
+      <h2>Console</h2>
+      <output id="console-log"></output>
+      <form id="console-form">
+        <input id="console-input" placeholder="STATUS">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
