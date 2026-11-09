@@ -9,7 +9,13 @@ export function installMockSerial() {
       this.status = 'F=7074000 BAND=40M STEP=1000 MODE=DIR EN=1 OUT=7074000,OFF,OFF IF=9000000 INJ=HI IQ=0 LIMIT=WIDE DRIVE=8,8,8 FOVR=0 CAL=0 FLAGS=0 SI5351=OK';
       this.closeAttempts = 0;
       this.closeError = null;
+      this.dropVer = false;
+      this.failClose = false;
 
+      this._createStreams();
+    }
+
+    _createStreams() {
       this.writable = new WritableStream({
         write: (chunk) => {
           const text = new TextDecoder().decode(chunk);
@@ -34,12 +40,20 @@ export function installMockSerial() {
 
     async open(options) {
       this._baudRate = options.baudRate;
+      this._closed = false;
+      this._queue = [];
+      this.closeError = null;
+      this._createStreams();
     }
 
     async close() {
       this.closeAttempts += 1;
       if (this.readable.locked || this.writable.locked) {
         this.closeError = new Error('Port streams are still locked');
+        throw this.closeError;
+      }
+      if (this.failClose) {
+        this.closeError = new Error('Port close failed');
         throw this.closeError;
       }
       this._closed = true;
@@ -129,7 +143,10 @@ export function installMockSerial() {
 
     _responseFor(line) {
       const upper = line.trim().toUpperCase();
-      if (upper === 'VER') return 'SI5351A VFO 0.1.0';
+      if (upper === 'VER') {
+        if (this.dropVer) return null;
+        return 'SI5351A VFO 0.1.0';
+      }
       if (upper === 'STATUS') {
         return this.status;
       }

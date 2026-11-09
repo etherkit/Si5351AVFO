@@ -220,9 +220,141 @@ test('disconnects and reconnects cleanly', async () => {
     await page.click('#connect');
     await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
     await page.click('#disconnect');
-    await page.waitForFunction(() => document.querySelector('#disconnect').hidden);
+    await page.waitForFunction(() => window.__app.conn === null);
+    await page.waitForFunction(() => window.__app.poll === null);
+    await page.click('#connect');
+    await page.waitForFunction(() => window.__app.conn !== null);
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => window.__app.poll !== null);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('initial sync requests STATUS and memories even if VER is lost', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.evaluate(() => { window.__mockSerial.port.dropVer = true; });
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.waitForFunction(() => document.querySelector('#memory-value-0').textContent === '7074000 DIR 40M');
+    assert.equal(await page.evaluate(() => window.__app.versionReceived), false);
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('STATUS')), true);
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('M?')), true);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('logs close errors', async () => {
+  const { context, page, errors } = await newPage();
+  try {
     await page.click('#connect');
     await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.evaluate(() => { window.__mockSerial.port.failClose = true; });
+    await page.click('#disconnect');
+    await page.waitForFunction(() => document.querySelector('#console-log').textContent.includes('Close failed'));
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('clears stale data after disconnect', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-freq').textContent === '7074000');
+    await page.waitForFunction(() => document.querySelector('#memory-value-0').textContent === '7074000 DIR 40M');
+    await page.click('#disconnect');
+    await page.waitForFunction(() => window.__app.conn === null);
+    assert.equal(await page.locator('#firmware-version').textContent(), '');
+    assert.equal(await page.locator('#status-freq').textContent(), '—');
+    assert.equal(await page.locator('#memory-value-0').textContent(), '—');
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('reconciles focused selects from STATUS', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#status-mode').textContent === 'DIR');
+    await page.selectOption('#mode', 'IQ');
+    await page.waitForFunction(() => window.__mockSerial.port.writes.includes('MODE IQ'));
+    await page.evaluate(() => {
+      window.__mockSerial.port.setStatus('F=7074000 BAND=40M STEP=1000 MODE=DIR EN=1 OUT=7074000,OFF,OFF IF=9000000 INJ=HI IQ=0 LIMIT=WIDE DRIVE=8,8,8 FOVR=0 CAL=0 FLAGS=0 SI5351=OK');
+    });
+    await page.waitForFunction(() => document.querySelector('#mode').value === 'DIR');
+    await page.waitForFunction(() => document.querySelector('#status-mode').textContent === 'DIR');
+    await page.waitForFunction(() => document.querySelector('#if').disabled === true);
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('resets memory collection state on reconnect', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    await page.waitForFunction(() => document.querySelector('#memory-value-0').textContent === '7074000 DIR 40M');
+    await page.evaluate(() => { window.__app.expectMemory = 5; window.__app.memoryLines = ['M0 x']; });
+    await page.click('#disconnect');
+    await page.waitForFunction(() => window.__app.conn === null);
+    assert.equal(await page.evaluate(() => window.__app.expectMemory), 0);
+    assert.equal(await page.evaluate(() => window.__app.memoryLines.length), 0);
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#memory-value-0').textContent === '7074000 DIR 40M');
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('requires confirmation before resetting settings', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    let acceptDialog = false;
+    page.on('dialog', (dialog) => {
+      if (acceptDialog) dialog.accept(); else dialog.dismiss();
+    });
+    await page.click('#reset');
+    await page.waitForTimeout(200);
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('RESET')), false);
+    acceptDialog = true;
+    await page.click('#reset');
+    await page.waitForFunction(() => window.__mockSerial.port.writes.includes('RESET'));
+    assert.deepEqual(errors, []);
+  } finally {
+    await context.close();
+  }
+});
+
+test('requires confirmation before clearing a memory', async () => {
+  const { context, page, errors } = await newPage();
+  try {
+    await page.click('#connect');
+    await page.waitForFunction(() => document.querySelector('#firmware-version').textContent.includes('0.1.0'));
+    let acceptDialog = false;
+    page.on('dialog', (dialog) => {
+      if (acceptDialog) dialog.accept(); else dialog.dismiss();
+    });
+    await page.click('#memory-row-0 button[aria-label="Clear M0"]');
+    await page.waitForTimeout(200);
+    assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('MC 0')), false);
+    acceptDialog = true;
+    await page.click('#memory-row-0 button[aria-label="Clear M0"]');
+    await page.waitForFunction(() => window.__mockSerial.port.writes.includes('MC 0'));
     assert.deepEqual(errors, []);
   } finally {
     await context.close();
@@ -321,6 +453,8 @@ test('exposes accessible labels', async () => {
     assert.equal(await page.locator('#drive-0').getAttribute('aria-label'), 'CLK0 drive');
     assert.equal(await page.locator('#memory-list button[aria-label="Store M0"]').count(), 1);
     assert.equal(await page.locator('#console-input').getAttribute('aria-label'), 'Console command');
+    assert.equal(await page.locator('label[for="clock-enable-0"]').count(), 1);
+    assert.equal(await page.locator('#status-flags').getAttribute('aria-live'), 'polite');
     assert.deepEqual(errors, []);
   } finally {
     await context.close();
@@ -352,6 +486,7 @@ test('rejects invalid numeric input', async () => {
     });
     await page.waitForTimeout(100);
     assert.equal(await page.evaluate(() => window.__mockSerial.port.writes.includes('F 0')), false);
+    assert.equal(await page.locator('#frequency').getAttribute('aria-invalid'), 'true');
     assert.deepEqual(errors, []);
   } finally {
     await context.close();

@@ -1,5 +1,5 @@
 export const COMMAND_LIMIT = 32;
-export const REPLY_LINE_LIMIT = 256;
+export const REPLY_LINE_LIMIT = 512;
 
 export function browserSupportsWebSerial() {
   return Boolean(
@@ -88,34 +88,36 @@ export class SerialConnection {
 
   async close() {
     this._closed = true;
+    const errors = [];
     if (this.reader) {
       try {
         await this.reader.cancel();
-      } catch {
-        // Ignore cancel errors during close.
+      } catch (error) {
+        errors.push(`reader cancel: ${error.message}`);
       }
       try {
         this.reader.releaseLock();
-      } catch {
-        // Ignore release errors during close.
+      } catch (error) {
+        errors.push(`reader release: ${error.message}`);
       }
     }
-    try {
-      if (this.writer) {
+    if (this.writer) {
+      try {
         this.writer.releaseLock();
+      } catch (error) {
+        errors.push(`writer release: ${error.message}`);
       }
-    } catch {
-      // Ignore writer release errors during close.
     }
-    try {
-      if (this.port) {
+    if (this.port) {
+      try {
         await this.port.close();
+      } catch (error) {
+        errors.push(`port close: ${error.message}`);
       }
-    } catch {
-      // Ignore port close errors during close.
     }
     this.reader = null;
     this.writer = null;
     this.port = null;
+    return errors;
   }
 }

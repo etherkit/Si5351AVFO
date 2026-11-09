@@ -82,6 +82,10 @@ select {
   margin-top: 0.25rem;
 }
 
+input[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+
 button {
   cursor: pointer;
 }

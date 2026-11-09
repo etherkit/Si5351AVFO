@@ -104,7 +104,11 @@ class App {
       }
     });
     this.elements.save.addEventListener('click', () => this.send(commands.save()));
-    this.elements.reset.addEventListener('click', () => this.send(commands.reset()));
+    this.elements.reset.addEventListener('click', () => {
+      if (window.confirm('Reset settings to defaults?')) {
+        this.send(commands.reset());
+      }
+    });
     this.elements.factoryReset.addEventListener('click', () => {
       if (window.confirm('Factory reset will erase calibration and all memories. Continue?')) {
         this.send(commands.factoryReset());
@@ -130,9 +134,11 @@ class App {
   validNumber(element, value, min, max) {
     if (!Number.isInteger(value) || value < min || value > max) {
       this.log('error', `${element.id} must be an integer between ${min} and ${max}`);
+      element.setAttribute('aria-invalid', 'true');
       element.focus();
       return false;
     }
+    element.removeAttribute('aria-invalid');
     return true;
   }
 
@@ -257,6 +263,7 @@ class App {
 
       const label = document.createElement('label');
       label.textContent = `CLK${clk}`;
+      label.htmlFor = enable.id;
       label.style.margin = '0';
 
       row.append(enable, label, drive, filterLabel);
@@ -296,8 +303,10 @@ class App {
       clear.textContent = 'Clear';
       clear.setAttribute('aria-label', `Clear M${channel}`);
       clear.addEventListener('click', () => {
-        this.send(commands.memoryClear(channel));
-        this.send(commands.memoryList());
+        if (window.confirm(`Clear M${channel}?`)) {
+          this.send(commands.memoryClear(channel));
+          this.send(commands.memoryList());
+        }
       });
       actions.append(store, recall, clear);
 
@@ -315,13 +324,20 @@ class App {
       this.conn = new SerialConnection();
       await this.conn.open();
       if (generation !== this.connectionGeneration) {
-        await this.conn.close();
+        if (this.conn) {
+          const errors = await this.conn.close();
+          if (errors.length) {
+            this.log('error', `Close failed: ${errors.join(', ')}`);
+          }
+        }
         return;
       }
       this.closed = false;
       this.versionReceived = false;
       this.statusReceived = false;
       this.memoryReceived = false;
+      this.expectMemory = 0;
+      this.memoryLines = [];
       this.setConnected(true);
       this.log('system', 'Connected');
       if (this.conn.info) {
@@ -345,14 +361,19 @@ class App {
 
   async initialSync(generation) {
     const deadline = Date.now() + 3000;
+    let memoryRequestedAt = 0;
     while (Date.now() < deadline && generation === this.connectionGeneration && this.conn) {
       if (!this.versionReceived) {
         this.send(commands.version());
-      } else if (!this.statusReceived) {
+      }
+      if (!this.statusReceived) {
         this.send(commands.status());
-      } else if (!this.memoryReceived) {
+      }
+      if (this.statusReceived && !this.memoryReceived && (this.expectMemory === 0 || Date.now() - memoryRequestedAt > 1000)) {
         this.send(commands.memoryList());
-      } else {
+        memoryRequestedAt = Date.now();
+      }
+      if (this.versionReceived && this.statusReceived && this.memoryReceived) {
         return;
       }
       await new Promise((resolve) => setTimeout(resolve, 500));
@@ -389,12 +410,37 @@ class App {
     this.closed = true;
     this.detachSerialDisconnectListener();
     if (this.conn) {
-      await this.conn.close();
+      const errors = await this.conn.close();
+      if (errors.length) {
+        this.log('error', `Close failed: ${errors.join(', ')}`);
+      }
       this.conn = null;
     }
+    this.expectMemory = 0;
+    this.memoryLines = [];
+    this.versionReceived = false;
+    this.statusReceived = false;
+    this.memoryReceived = false;
     this.setConnected(false);
-    this.elements.portInfo.textContent = '';
+    this.clearConnectionState();
     this.log('system', 'Disconnected');
+  }
+
+  clearConnectionState() {
+    this.elements.portInfo.textContent = '';
+    this.elements.firmwareVersion.textContent = '';
+    this.elements.statusFreq.textContent = '—';
+    this.elements.statusBand.textContent = '—';
+    this.elements.statusStep.textContent = '—';
+    this.elements.statusMode.textContent = '—';
+    this.elements.statusSi5351.textContent = '—';
+    this.elements.statusOutputs.textContent = '—';
+    this.elements.statusFlags.textContent = '—';
+    for (let channel = 0; channel < 10; channel += 1) {
+      const value = document.getElementById(`memory-value-${channel}`);
+      if (value) value.textContent = '—';
+    }
+    this.updateKnob(0);
   }
 
   setConnected(connected) {
@@ -409,7 +455,7 @@ class App {
       return Promise.resolve();
     }
     if (line === 'M?') {
-      this.expectMemory += 10;
+      this.expectMemory = 10;
       this.memoryLines = [];
     }
     this.log('sent', line);
@@ -451,7 +497,7 @@ class App {
 
     if (this.expectMemory > 0 && /^M\d+\s/.test(text)) {
       this.memoryLines.push(text);
-      this.expectMemory -= 1;
+      this.expectMemory = Math.max(0, this.expectMemory - 1);
       if (this.expectMemory === 0) {
         this.renderMemory(status.parseMemoryList(this.memoryLines));
         this.memoryLines = [];
@@ -503,7 +549,7 @@ class App {
       const drive = document.getElementById(`drive-${clk}`);
       const filter = document.getElementById(`filter-${clk}`);
       if (enable && document.activeElement !== enable) enable.checked = state.clockEnabled[clk];
-      if (drive && document.activeElement !== drive) drive.value = String(state.drive[clk] ?? 8);
+      if (drive) this.setIfUnfocused(drive, String(state.drive[clk] ?? 8));
       if (filter && document.activeElement !== filter) filter.checked = state.filterOverride[clk];
     }
 
@@ -511,7 +557,7 @@ class App {
   }
 
   setIfUnfocused(element, value) {
-    if (document.activeElement !== element) {
+    if (element.tagName === 'SELECT' || document.activeElement !== element) {
       element.value = value;
     }
   }
