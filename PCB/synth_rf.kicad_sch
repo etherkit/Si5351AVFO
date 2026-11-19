@@ -3220,6 +3220,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 167.64 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3867-1-ND"
+			(at 167.64 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "0e091feb-a7ff-444c-a334-e0769eaf74b9")
 		)
@@ -3628,7 +3650,7 @@
 				)
 			)
 		)
-		(property "MPN" "LQW2UAS33NG0CL"
+		(property "MPN" "LQW2UAS33NG00L"
 			(at 121.92 264.16 0)
 			(hide yes)
 			(show_name no)
@@ -3639,7 +3661,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Murata Electronics"
+			(at 121.92 264.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 121.92 264.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-LQW2UAS33NG00LCT-ND"
 			(at 121.92 264.16 0)
 			(hide yes)
 			(show_name no)
@@ -3919,7 +3963,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519489"
+		(property "LCSC" "C519460"
 			(at 121.92 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -3942,6 +3986,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 121.92 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 121.92 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN160CT-ND"
 			(at 121.92 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -4710,6 +4776,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 121.92 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-18518-1-ND"
+			(at 121.92 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "42340c48-fad8-42e4-b088-cca6f34284dd")
 		)
@@ -5106,7 +5194,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603FRNPO9BN330"
+		(property "MPN" "KGM15ACG1H330FT"
 			(at 109.22 223.52 0)
 			(hide yes)
 			(show_name no)
@@ -5117,7 +5205,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 109.22 223.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 109.22 223.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "478-KGM15ACG1H330FTCT-ND"
 			(at 109.22 223.52 0)
 			(hide yes)
 			(show_name no)
@@ -5882,6 +5992,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 167.64 264.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-LQW2UAS68NG00LCT-ND"
+			(at 167.64 264.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "c5976e91-0180-4f6d-b012-a29824466e0e")
 		)
@@ -6188,6 +6320,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 152.4 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 152.4 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3906-1-ND"
 			(at 152.4 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -6588,6 +6742,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 167.64 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
+			(at 167.64 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "acf07a40-3520-4028-b3a5-1460eba4d81b")
 		)
@@ -6680,7 +6856,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603CG240G500NT"
+		(property "MPN" "CC0603FRNPO9BN240"
 			(at 129.54 269.24 0)
 			(hide yes)
 			(show_name no)
@@ -6691,7 +6867,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FH"
+		(property "Manufacturer" "YAGEO"
+			(at 129.54 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 129.54 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN240CT-ND"
 			(at 129.54 269.24 0)
 			(hide yes)
 			(show_name no)
@@ -7320,6 +7518,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 144.78 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN200CT-ND"
+			(at 144.78 165.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "2857437d-10e5-414d-98be-18eb07fcc8d8")
 		)
@@ -7624,6 +7844,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 175.26 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3889-1-ND"
+			(at 175.26 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "70de8e0d-ef51-441d-8685-7878e4a1f679")
 		)
@@ -7726,6 +7968,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 167.64 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 167.64 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3827-1-ND"
 			(at 167.64 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -8076,6 +8340,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 167.64 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3867-1-ND"
+			(at 167.64 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "19a90039-b814-400b-b92a-7c64c834dcc4")
 		)
@@ -8321,7 +8607,7 @@
 				)
 			)
 		)
-		(property "Value" "Si5351A-B-GT"
+		(property "Value" "Si5351A-B-GTR"
 			(at 127 107.95 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8364,7 +8650,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C529366"
+		(property "LCSC" "C504891"
 			(at 139.7 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -8375,7 +8661,7 @@
 				)
 			)
 		)
-		(property "LCSC_ALT" "C504891"
+		(property "LCSC_ALT" "C529366"
 			(at 139.7 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -8386,7 +8672,7 @@
 				)
 			)
 		)
-		(property "MPN" "SI5351A-B-GT"
+		(property "MPN" "SI5351A-B-GTR"
 			(at 139.7 95.25 0)
 			(hide yes)
 			(show_name no)
@@ -8536,6 +8822,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 152.4 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 152.4 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3894-1-ND"
 			(at 152.4 269.24 0)
 			(hide yes)
 			(show_name no)
@@ -8724,6 +9032,28 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
+			(at 144.78 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 144.78 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
 			(at 144.78 218.44 0)
 			(hide yes)
 			(show_name no)
@@ -9224,6 +9554,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 167.64 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
+			(at 167.64 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "a528bd95-81e2-49e7-aa09-264752c70ee2")
 		)
@@ -9542,7 +9894,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603FRNPO9BN330"
+		(property "MPN" "KGM15ACG1H330FT"
 			(at 109.22 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -9553,7 +9905,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "KYOCERA AVX"
+			(at 109.22 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 109.22 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "478-KGM15ACG1H330FTCT-ND"
 			(at 109.22 177.8 0)
 			(hide yes)
 			(show_name no)
@@ -9958,6 +10332,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 152.4 223.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3906-1-ND"
+			(at 152.4 223.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "872a578b-c10b-4d99-9212-626bc8b34350")
 		)
@@ -10060,6 +10456,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 144.78 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 144.78 210.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN200CT-ND"
 			(at 144.78 210.82 0)
 			(hide yes)
 			(show_name no)
@@ -10614,6 +11032,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 121.92 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-18518-1-ND"
+			(at 121.92 218.44 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "df244b0b-477e-4dd2-9861-1c6d6b90b99b")
 		)
@@ -10892,6 +11332,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 144.78 264.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-LQW2UAS68NG00LCT-ND"
+			(at 144.78 264.16 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "667c1e38-ebe6-4563-91ab-d6605bae374b")
 		)
@@ -10994,6 +11456,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 144.78 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 144.78 256.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3837-1-ND"
 			(at 144.78 256.54 0)
 			(hide yes)
 			(show_name no)
@@ -11182,6 +11666,28 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
+			(at 144.78 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 144.78 172.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
 			(at 144.78 172.72 0)
 			(hide yes)
 			(show_name no)
@@ -11520,6 +12026,28 @@
 			)
 		)
 		(property "Manufacturer" "YAGEO"
+			(at 109.22 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 109.22 269.24 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-3833-1-ND"
 			(at 109.22 269.24 0)
 			(hide yes)
 			(show_name no)

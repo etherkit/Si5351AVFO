@@ -5084,6 +5084,28 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 149.86 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "311-22.1KHRCT-ND"
+			(at 149.86 59.69 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "1"
 			(uuid "fae6c2cc-1ce5-4c0b-90b4-fc91d364404b")
 		)
@@ -5186,6 +5208,28 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
+			(at 118.11 232.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 118.11 232.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-5221-1-ND"
 			(at 118.11 232.41 0)
 			(hide yes)
 			(show_name no)
@@ -5610,6 +5654,28 @@
 			)
 		)
 		(property "Manufacturer" "Murata"
+			(at 118.11 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 118.11 167.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "490-5221-1-ND"
 			(at 118.11 167.64 0)
 			(hide yes)
 			(show_name no)
@@ -10626,7 +10692,7 @@
 				)
 			)
 		)
-		(property "MPN" "FRC0603F4752TS"
+		(property "MPN" "RMCF0603FT47K5"
 			(at 149.86 80.01 0)
 			(hide yes)
 			(show_name no)
@@ -10637,7 +10703,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FOJAN"
+		(property "Manufacturer" "Stackpole"
+			(at 149.86 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 149.86 80.01 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "RMCF0603FT47K5CT-ND"
 			(at 149.86 80.01 0)
 			(hide yes)
 			(show_name no)

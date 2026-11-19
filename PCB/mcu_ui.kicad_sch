@@ -4690,10 +4690,10 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom no)
+		(in_bom yes)
 		(on_board yes)
-		(in_pos_files no)
-		(dnp yes)
+		(in_pos_files yes)
+		(dnp no)
 		(uuid "46748e1e-c507-45eb-9422-e7ae9b47d267")
 		(property "Reference" "R20"
 			(at 236.75 201.33 0)
@@ -6294,7 +6294,7 @@
 				)
 			)
 		)
-		(property "Value" "1N5711W"
+		(property "Value" "SD101AW-TP"
 			(at 317.5 181.61 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6337,7 +6337,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C154843"
+		(property "LCSC" "C154887"
 			(at 309.88 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -6348,7 +6348,7 @@
 				)
 			)
 		)
-		(property "MPN" "1N5711W-7-F"
+		(property "MPN" "SD101AW-TP"
 			(at 309.88 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -6359,7 +6359,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes Incorporated"
+		(property "Manufacturer" "MCC"
+			(at 309.88 180.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 309.88 180.34 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "SD101AWTPMSCT-ND"
 			(at 309.88 180.34 0)
 			(hide yes)
 			(show_name no)
@@ -7182,7 +7204,7 @@
 				)
 			)
 		)
-		(property "MPN" "B-2100S04P-A110"
+		(property "MPN" "PREC004SAAN-RC"
 			(at 334.01 170.18 0)
 			(hide yes)
 			(show_name no)
@@ -7193,7 +7215,29 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Ckmtw"
+		(property "Manufacturer" "Sullins"
+			(at 334.01 170.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 334.01 170.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "35-PREC004SAAN-RC-ND"
 			(at 334.01 170.18 0)
 			(hide yes)
 			(show_name no)
@@ -7699,7 +7743,7 @@
 				)
 			)
 		)
-		(property "Value" "ATtiny3226-SU"
+		(property "Value" "ATtiny3226-SF"
 			(at 152.4 132.08 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7754,7 +7798,7 @@
 				)
 			)
 		)
-		(property "MPN" "ATTINY3226-SU"
+		(property "MPN" "ATTINY3226-SF"
 			(at 149.86 110.49 0)
 			(hide yes)
 			(show_name no)
@@ -7766,6 +7810,28 @@
 			)
 		)
 		(property "Manufacturer" "Microchip"
+			(at 149.86 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 149.86 110.49 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DK_PN" "150-ATTINY3226-SF-ND"
 			(at 149.86 110.49 0)
 			(hide yes)
 			(show_name no)

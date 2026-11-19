@@ -1098,6 +1098,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8bad273e-1374-4114-8107-6aa2c1b2ffec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-LQW2UAS68NG00LCT-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b58a8efd-8b9d-48c3-a0bf-6f6fe73292d6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/6449b29b-cd72-4198-b6b9-149de7db18e4")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -2124,6 +2148,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "2910ab12-1bd9-4f5d-b0c8-24b599a5ee8f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "07b19f55-b972-44ce-acb9-e3a51fcafbdb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3867-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a3c78598-d69d-42d3-89d0-666ec26af0aa")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6588,7 +6636,7 @@
 				)
 			)
 		)
-		(property "Value" "ATtiny3226-SU"
+		(property "Value" "ATtiny3226-SF"
 			(at 0 7.35 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -6646,7 +6694,7 @@
 				)
 			)
 		)
-		(property "MPN" "ATTINY3226-SU"
+		(property "MPN" "ATTINY3226-SF"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -6663,6 +6711,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "ad53568d-508c-488d-ac01-e94ed18e06d6")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0f9bf5b3-54ff-4b2e-a08f-55b01a80af8f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "150-ATTINY3226-SF-ND"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "70ff73f7-7e50-4526-9215-6d3bcf13399f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7138,7 +7210,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603FRNPO9BN330"
+		(property "MPN" "KGM15ACG1H330FT"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
@@ -7150,11 +7222,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "KYOCERA AVX"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "64003e4a-c2a2-4377-aab2-a588071ad8ff")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c497fe3c-968b-44e1-85ca-5af46876ef60")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "478-KGM15ACG1H330FTCT-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bd3c4856-5def-44c4-a67c-bee2dbc85dcb")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7907,6 +8003,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "13ca2f60-621a-4cd9-a859-a3f526bb89e4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "864f757f-37e9-4b75-8de2-b31a443942df")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "3499ec09-38ac-4fd2-94e7-4151aeb99284")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9133,6 +9253,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "5319786d-181b-4ea7-a087-4fec3bb51453")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "695e828b-b934-4fba-b76d-13acf3d2f341")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3867-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "0b055525-27bd-4ee6-93c9-03195d140650")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10480,7 +10624,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603CG240G500NT"
+		(property "MPN" "CC0603FRNPO9BN240"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
@@ -10492,11 +10636,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FH"
+		(property "Manufacturer" "YAGEO"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "36c2598c-5e38-49c0-9fee-b80c529830c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5719e269-75fa-4b25-a5dc-7fe5331577b0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN240CT-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "32dec244-d26c-4ac5-8792-f2553942681a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10683,6 +10851,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "b79d84ca-b826-4d43-9ebc-f440852bc6d2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "774622dc-d928-4baa-80e1-a39bd4627313")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3906-1-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "52036a20-efc7-469f-94a5-1052fa30dba6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13022,6 +13214,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "74e950c2-e170-4102-ad04-c59b821b3349")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3894-1-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2ef2848e-a7f0-44a4-a498-571f34f8c270")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/acc53a91-895f-4747-ba2c-8a1db842fef7")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -13370,7 +13586,7 @@
 				)
 			)
 		)
-		(property "MPN" "CC0603FRNPO9BN330"
+		(property "MPN" "KGM15ACG1H330FT"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
@@ -13382,11 +13598,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "YAGEO"
+		(property "Manufacturer" "KYOCERA AVX"
 			(at 0 0 180)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "cff4e5d4-727d-4bbd-9e49-2bf8348e8317")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fd4eee4c-dbe6-4199-9e26-20bce1e99a22")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "478-KGM15ACG1H330FTCT-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c7422cf2-2ef6-48df-8d90-426517dfc8b2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13573,6 +13813,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "7ff31402-fa88-4dcc-ab9d-5e946ad9f3be")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "4c3a5457-e763-4b31-b259-d4ddf4c9dc4d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3889-1-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "db481dca-a7bd-491c-881e-bfa8ef775676")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13769,7 +14033,7 @@
 		(path "/b0000000-0000-4000-8000-000000000003/46748e1e-c507-45eb-9422-e7ae9b47d267")
 		(sheetname "MCU and UI")
 		(sheetfile "mcu_ui.kicad_sch")
-		(attr smd exclude_from_pos_files exclude_from_bom dnp)
+		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.227064 -0.735)
@@ -14788,6 +15052,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "630c7371-b66e-4110-be0f-5e6a7295c294")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-18518-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "efb6bd69-fe9f-4393-9d18-0cbd8d6c8070")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/e22a80bf-2354-430c-a4aa-9848faca4b0b")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -14967,6 +15255,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "efb98c89-7d45-4c95-9a7a-a6fa7d0faf66")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5e9ec14a-3433-4341-9197-4f8898f89c5f")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-22.1KHRCT-ND"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c6ed9fb1-ba9a-44db-a291-560a8d1d2ed9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15904,6 +16216,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b95838d3-ede5-40e1-b5b0-8862d6181227")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3833-1-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f91db872-41fa-4c3b-9bf3-64f461a2c9ef")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/fe8708f6-db62-4301-b7bf-c328ea7ca278")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -16083,6 +16419,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "1b3a9d15-aaca-48e6-bfc8-8c8ab5fe9b98")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "68bd606f-e541-4032-b1a8-6fd7bbb45b99")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3837-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "62e182d5-506c-4240-916f-a3ef065caa28")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16567,6 +16927,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6c32e609-ec02-4502-ace9-5457a5834e17")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "404ebe80-a353-464b-bb30-b89781aaaf36")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/6ffd41fa-38a0-4fb3-a41c-93d2a679c72d")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -17027,6 +17411,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8ca80084-868e-44d1-bbd9-bcafcdde76a5")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "01b3da91-4ae3-4665-896a-a92335cf9b2a")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/af6e1411-969c-4622-b4c5-e39762867abd")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -17392,6 +17800,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "36b7ee36-b6ee-44fa-9eea-48adfdd591e4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b8e543bc-2299-4ba4-b006-a34cc8d762c7")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-5221-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "acf5ec6d-9bc3-4b61-a0ba-be2bd1fa0228")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18119,7 +18551,7 @@
 				)
 			)
 		)
-		(property "MPN" "FRC0603F4752TS"
+		(property "MPN" "RMCF0603FT47K5"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -18131,11 +18563,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "FOJAN"
+		(property "Manufacturer" "Stackpole"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "b3dd240b-0ea0-427a-b64d-6833652a4421")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f28e8d91-88d5-4b25-9252-8251190edcd0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "RMCF0603FT47K5CT-ND"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "83a08915-7967-44fe-ae50-ff596a6f1de7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18247,7 +18703,7 @@
 				)
 			)
 		)
-		(property "Value" "1N5711W"
+		(property "Value" "SD101AW-TP"
 			(at 0 2.1 0)
 			(layer "F.Fab")
 			(hide yes)
@@ -18285,7 +18741,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C154843"
+		(property "LCSC" "C154887"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -18297,7 +18753,7 @@
 				)
 			)
 		)
-		(property "MPN" "1N5711W-7-F"
+		(property "MPN" "SD101AW-TP"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -18309,11 +18765,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Diodes Incorporated"
+		(property "Manufacturer" "MCC"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "e758634a-f899-4073-b5ac-d29a76563ff1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2cb129dc-6964-40fd-bf35-be0d440cd1af")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "SD101AWTPMSCT-ND"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b82b59f0-0024-4464-8976-487277b019b4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -19600,6 +20080,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c5d26f06-d901-4436-80ff-0d8cd4652626")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3827-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "925cdbe7-861d-4e6f-bf22-3b7d422058b4")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/9621c827-d858-48d9-b5d2-220b309cd531")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -19779,6 +20283,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "86c67ccc-07bc-489d-87ee-b06e8ee7cf0d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "17f389e0-8f76-4c5b-bb04-6807d1f41918")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-18518-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d4a7b1a4-1278-4a8c-997c-37848fcce429")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20923,6 +21451,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "c55d7ce9-38de-418f-8e79-a832bf207def")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "311-3906-1-ND"
+			(at 0 0 180)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "2022ff48-b7c8-431d-bf14-9694f48cb3ca")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/d3c3cd41-ce00-4e46-9776-e773242e0ddb")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -21102,6 +21654,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "dee9d2a5-aece-4587-8603-b9cb4575ad0b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "637bbd62-1c7c-4363-aebb-bb699d42b39d")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN200CT-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "d9292913-fb39-45d3-abf9-2ec71d7f23c2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21445,7 +22021,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C519489"
+		(property "LCSC" "C519460"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -21474,6 +22050,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "d7023737-ad87-4820-b53c-a3582ad91d32")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "51e1bf3a-ef02-4dcd-99d9-72ed8ad4327b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN160CT-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "a5bd4ec9-758a-47e4-b974-f3258e0ef173")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -22143,7 +22743,7 @@
 				)
 			)
 		)
-		(property "Value" "Si5351A-B-GT"
+		(property "Value" "Si5351A-B-GTR"
 			(at 0 2.45 90)
 			(layer "F.Fab")
 			(hide yes)
@@ -22189,7 +22789,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C529366"
+		(property "LCSC" "C504891"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -22201,7 +22801,7 @@
 				)
 			)
 		)
-		(property "LCSC_ALT" "C504891"
+		(property "LCSC_ALT" "C529366"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -22213,7 +22813,7 @@
 				)
 			)
 		)
-		(property "MPN" "SI5351A-B-GT"
+		(property "MPN" "SI5351A-B-GTR"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -22642,6 +23242,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "cb366574-3444-49ff-92ce-2bf91675b5ae")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "8d1dfa1d-acdd-4b1b-99c5-ee55c0be9130")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "13-CC0603FRNPO9BN200CT-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "5ad94c60-4a3a-4db9-84ff-077b45222f1a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -26051,6 +26675,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "e311a00a-d96f-4bdb-a9f3-2f73ba479821")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-16089-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "722bfc67-581b-4bf1-9f8e-98b3942f61bd")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/fad72a8c-9578-42d7-8f08-3336b3ecb3cf")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -26714,6 +27362,30 @@
 				)
 			)
 		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "fb7aace8-57eb-488f-9b47-80ff765723f2")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-LQW2UAS68NG00LCT-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "f43cd3a0-113a-4366-a884-8a3c5dcfb4ec")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(path "/b0000000-0000-4000-8000-000000000004/e8b625c1-685a-45a6-9d20-ce8d338d8667")
 		(sheetname "Synth and RF outputs")
 		(sheetfile "synth_rf.kicad_sch")
@@ -27256,7 +27928,7 @@
 				)
 			)
 		)
-		(property "MPN" "LQW2UAS33NG0CL"
+		(property "MPN" "LQW2UAS33NG00L"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -27268,11 +27940,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Murata"
+		(property "Manufacturer" "Murata Electronics"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "0fc22f9b-9d31-4399-925e-0e5fe2c7fa4b")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "182bf5b0-e926-4235-b731-d73147bf7529")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-LQW2UAS33NG00LCT-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "ea6923dd-627f-4654-a2fa-1e6038bedc6a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27628,7 +28324,7 @@
 				)
 			)
 		)
-		(property "MPN" "B-2100S04P-A110"
+		(property "MPN" "PREC004SAAN-RC"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -27640,11 +28336,35 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Ckmtw"
+		(property "Manufacturer" "Sullins"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "04daf87a-b6dd-4415-a96d-0096920c79d9")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "b1dc9750-d68f-49f7-afc7-345c1c862f53")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "35-PREC004SAAN-RC-ND"
+			(at 0 0 0)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "6421421a-5a0d-427f-adc5-54dfba20ab0d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27930,6 +28650,30 @@
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "a8005907-4924-45a4-86c2-9f32299f6baf")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "JLC_PCBA" "No"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "bd10a5ff-fd86-4812-91e3-22b021f03ae1")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "DK_PN" "490-5221-1-ND"
+			(at 0 0 90)
+			(layer "F.SilkS")
+			(hide yes)
+			(uuid "84d45047-12df-4f00-98ee-3a53450ae632")
 			(effects
 				(font
 					(size 1.27 1.27)
