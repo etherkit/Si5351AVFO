@@ -1,9 +1,9 @@
 (export
 	(version "E")
 	(design
-		(source "/workspace/vfo-pcb/PCB/Si5351AVFO.kicad_sch")
-		(date "2026-10-28T09:20:39")
-		(tool "Eeschema 10.0.7")
+		(source "/__w/Si5351AVFO/Si5351AVFO/PCB/Si5351AVFO.kicad_sch")
+		(date "2026-11-19T23:35:04")
+		(tool "Eeschema 10.0.8")
 		(sheet
 			(number "1")
 			(name "/")
@@ -1225,6 +1225,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-5221-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1248,6 +1252,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-5221-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -1297,6 +1309,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-5221-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1320,6 +1336,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-5221-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -1858,6 +1882,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-22.1KHRCT-ND")
+				(field
 					(name "Footprint") "Resistor_SMD:R_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -1881,6 +1909,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-22.1KHRCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -1926,9 +1962,13 @@
 				(field
 					(name "LCSC") "C2933225")
 				(field
-					(name "MPN") "FRC0603F4752TS")
+					(name "MPN") "RMCF0603FT47K5")
 				(field
-					(name "Manufacturer") "FOJAN")
+					(name "Manufacturer") "Stackpole")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "RMCF0603FT47K5CT-ND")
 				(field
 					(name "Footprint") "Resistor_SMD:R_0603_1608Metric")
 				(field
@@ -1948,11 +1988,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "FRC0603F4752TS")
+				(value "RMCF0603FT47K5")
 			)
 			(property
 				(name "Manufacturer")
-				(value "FOJAN")
+				(value "Stackpole")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "RMCF0603FT47K5CT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -3530,16 +3578,20 @@
 		)
 		(comp
 			(ref "D4")
-			(value "1N5711W")
+			(value "SD101AW-TP")
 			(footprint "Diode_SMD:D_SOD-123")
 			(description "Schottky diode")
 			(fields
 				(field
-					(name "LCSC") "C154843")
+					(name "LCSC") "C154887")
 				(field
-					(name "MPN") "1N5711W-7-F")
+					(name "MPN") "SD101AW-TP")
 				(field
-					(name "Manufacturer") "Diodes Incorporated")
+					(name "Manufacturer") "MCC")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "SD101AWTPMSCT-ND")
 				(field
 					(name "Footprint") "Diode_SMD:D_SOD-123")
 				(field
@@ -3555,15 +3607,23 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C154843")
+				(value "C154887")
 			)
 			(property
 				(name "MPN")
-				(value "1N5711W-7-F")
+				(value "SD101AW-TP")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Diodes Incorporated")
+				(value "MCC")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "SD101AWTPMSCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -3706,9 +3766,13 @@
 				(field
 					(name "LCSC") "C124378")
 				(field
-					(name "MPN") "B-2100S04P-A110")
+					(name "MPN") "PREC004SAAN-RC")
 				(field
-					(name "Manufacturer") "Ckmtw")
+					(name "Manufacturer") "Sullins")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "35-PREC004SAAN-RC-ND")
 				(field
 					(name "Footprint") "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical")
 				(field
@@ -3728,11 +3792,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "B-2100S04P-A110")
+				(value "PREC004SAAN-RC")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Ckmtw")
+				(value "Sullins")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "35-PREC004SAAN-RC-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -4395,15 +4467,6 @@
 			(property
 				(name "Sheetfile")
 				(value "mcu_ui.kicad_sch")
-			)
-			(property
-				(name "exclude_from_bom")
-			)
-			(property
-				(name "exclude_from_pos_files")
-			)
-			(property
-				(name "dnp")
 			)
 			(property
 				(name "ki_keywords")
@@ -5151,7 +5214,7 @@
 		)
 		(comp
 			(ref "U4")
-			(value "ATtiny3226-SU")
+			(value "ATtiny3226-SF")
 			(footprint "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm")
 			(datasheet "https://ww1.microchip.com/downloads/en/DeviceDoc/ATtiny3224-3226-3227-Data-Sheet-DS40002345A.pdf")
 			(description "20MHz, 32kB Flash, 3kB SRAM, 256B EEPROM, SOIC-20")
@@ -5159,9 +5222,13 @@
 				(field
 					(name "LCSC") "C3234898")
 				(field
-					(name "MPN") "ATTINY3226-SU")
+					(name "MPN") "ATTINY3226-SF")
 				(field
 					(name "Manufacturer") "Microchip")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "150-ATTINY3226-SF-ND")
 				(field
 					(name "Footprint") "Package_SO:SOIC-20W_7.5x12.8mm_P1.27mm")
 				(field
@@ -5180,11 +5247,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "ATTINY3226-SU")
+				(value "ATTINY3226-SF")
 			)
 			(property
 				(name "Manufacturer")
 				(value "Microchip")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "150-ATTINY3226-SF-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -5788,9 +5863,13 @@
 				(field
 					(name "LCSC") "C519485")
 				(field
-					(name "MPN") "CC0603FRNPO9BN330")
+					(name "MPN") "KGM15ACG1H330FT")
 				(field
-					(name "Manufacturer") "YAGEO")
+					(name "Manufacturer") "KYOCERA AVX")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "478-KGM15ACG1H330FTCT-ND")
 				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
@@ -5810,11 +5889,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "CC0603FRNPO9BN330")
+				(value "KGM15ACG1H330FT")
 			)
 			(property
 				(name "Manufacturer")
-				(value "YAGEO")
+				(value "KYOCERA AVX")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "478-KGM15ACG1H330FTCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -5936,6 +6023,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3906-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -5959,6 +6050,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3906-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6152,6 +6251,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "13-CC0603FRNPO9BN200CT-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -6175,6 +6278,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "13-CC0603FRNPO9BN200CT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6224,6 +6335,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3867-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -6247,6 +6362,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3867-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6364,9 +6487,13 @@
 				(field
 					(name "LCSC") "C519485")
 				(field
-					(name "MPN") "CC0603FRNPO9BN330")
+					(name "MPN") "KGM15ACG1H330FT")
 				(field
-					(name "Manufacturer") "YAGEO")
+					(name "Manufacturer") "KYOCERA AVX")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "478-KGM15ACG1H330FTCT-ND")
 				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
@@ -6386,11 +6513,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "CC0603FRNPO9BN330")
+				(value "KGM15ACG1H330FT")
 			)
 			(property
 				(name "Manufacturer")
-				(value "YAGEO")
+				(value "KYOCERA AVX")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "478-KGM15ACG1H330FTCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6512,6 +6647,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3906-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -6535,6 +6674,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3906-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6728,6 +6875,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "13-CC0603FRNPO9BN200CT-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -6751,6 +6902,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "13-CC0603FRNPO9BN200CT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6800,6 +6959,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3867-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -6823,6 +6986,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3867-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -6944,6 +7115,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3833-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -6967,6 +7142,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3833-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -7012,9 +7195,13 @@
 				(field
 					(name "LCSC") "C2857979")
 				(field
-					(name "MPN") "0603CG240G500NT")
+					(name "MPN") "CC0603FRNPO9BN240")
 				(field
-					(name "Manufacturer") "FH")
+					(name "Manufacturer") "YAGEO")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "13-CC0603FRNPO9BN240CT-ND")
 				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
@@ -7034,11 +7221,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "0603CG240G500NT")
+				(value "CC0603FRNPO9BN240")
 			)
 			(property
 				(name "Manufacturer")
-				(value "FH")
+				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "13-CC0603FRNPO9BN240CT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -7088,6 +7283,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3894-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -7111,6 +7310,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3894-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -7160,6 +7367,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3889-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -7183,6 +7394,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3889-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -7226,11 +7445,15 @@
 			(description "Unpolarized capacitor, small symbol")
 			(fields
 				(field
-					(name "LCSC") "C519489")
+					(name "LCSC") "C519460")
 				(field
 					(name "MPN") "CC0603FRNPO9BN160")
 				(field
 					(name "Manufacturer") "YAGEO")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "13-CC0603FRNPO9BN160CT-ND")
 				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
@@ -7246,7 +7469,7 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C519489")
+				(value "C519460")
 			)
 			(property
 				(name "MPN")
@@ -7255,6 +7478,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "13-CC0603FRNPO9BN160CT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -7304,6 +7535,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3837-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -7327,6 +7562,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3837-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -7376,6 +7619,10 @@
 				(field
 					(name "Manufacturer") "YAGEO")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "311-3827-1-ND")
+				(field
 					(name "Footprint") "Capacitor_SMD:C_0603_1608Metric")
 				(field
 					(name "Datasheet")
@@ -7399,6 +7646,14 @@
 			(property
 				(name "Manufacturer")
 				(value "YAGEO")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "311-3827-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8462,6 +8717,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-18518-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8485,6 +8744,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-18518-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8534,6 +8801,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-16089-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8557,6 +8828,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-16089-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8606,6 +8885,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-16089-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8629,6 +8912,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-16089-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8678,6 +8969,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-18518-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8701,6 +8996,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-18518-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8750,6 +9053,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-16089-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8773,6 +9080,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-16089-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8822,6 +9137,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-16089-1-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8845,6 +9164,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-16089-1-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8890,9 +9217,13 @@
 				(field
 					(name "LCSC") "C2043161")
 				(field
-					(name "MPN") "LQW2UAS33NG0CL")
+					(name "MPN") "LQW2UAS33NG00L")
 				(field
-					(name "Manufacturer") "Murata")
+					(name "Manufacturer") "Murata Electronics")
+				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-LQW2UAS33NG00LCT-ND")
 				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
@@ -8912,11 +9243,19 @@
 			)
 			(property
 				(name "MPN")
-				(value "LQW2UAS33NG0CL")
+				(value "LQW2UAS33NG00L")
 			)
 			(property
 				(name "Manufacturer")
-				(value "Murata")
+				(value "Murata Electronics")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-LQW2UAS33NG00LCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -8966,6 +9305,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-LQW2UAS68NG00LCT-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -8989,6 +9332,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-LQW2UAS68NG00LCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -9038,6 +9389,10 @@
 				(field
 					(name "Manufacturer") "Murata")
 				(field
+					(name "JLC_PCBA") "No")
+				(field
+					(name "DK_PN") "490-LQW2UAS68NG00LCT-ND")
+				(field
 					(name "Footprint") "Inductor_SMD:L_1008_2520Metric")
 				(field
 					(name "Datasheet")
@@ -9061,6 +9416,14 @@
 			(property
 				(name "Manufacturer")
 				(value "Murata")
+			)
+			(property
+				(name "JLC_PCBA")
+				(value "No")
+			)
+			(property
+				(name "DK_PN")
+				(value "490-LQW2UAS68NG00LCT-ND")
 			)
 			(property
 				(name "Sheetname")
@@ -9756,17 +10119,17 @@
 		)
 		(comp
 			(ref "U2")
-			(value "Si5351A-B-GT")
+			(value "Si5351A-B-GTR")
 			(footprint "Package_SO:MSOP-10_3x3mm_P0.5mm")
 			(datasheet "https://www.silabs.com/documents/public/data-sheets/Si5351-B.pdf")
 			(description "I2C Programmable Any-Frequency CMOS Clock Generator, MSOP-10")
 			(fields
 				(field
-					(name "LCSC") "C529366")
+					(name "LCSC") "C504891")
 				(field
-					(name "LCSC_ALT") "C504891")
+					(name "LCSC_ALT") "C529366")
 				(field
-					(name "MPN") "SI5351A-B-GT")
+					(name "MPN") "SI5351A-B-GTR")
 				(field
 					(name "Manufacturer") "Skyworks/Silicon Labs")
 				(field
@@ -9783,15 +10146,15 @@
 			)
 			(property
 				(name "LCSC")
-				(value "C529366")
-			)
-			(property
-				(name "LCSC_ALT")
 				(value "C504891")
 			)
 			(property
+				(name "LCSC_ALT")
+				(value "C529366")
+			)
+			(property
 				(name "MPN")
-				(value "SI5351A-B-GT")
+				(value "SI5351A-B-GTR")
 			)
 			(property
 				(name "Manufacturer")
