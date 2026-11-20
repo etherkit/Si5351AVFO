@@ -9,7 +9,8 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 B=PCB/Si5351AVFO; O=PCB/production; G=$O/gerbers
-rm -rf "$O"; mkdir -p "$G"
+# Only clear generated outputs; README, pricing and digikey/ in $O are hand-maintained.
+rm -rf "$G" "$O"/Si5351AVFO_BOM_JLC.csv "$O"/Si5351AVFO_CPL_JLC.csv "$O"/Si5351AVFO_gerbers_JLC.zip "$O"/erc.rpt "$O"/drc.rpt; mkdir -p "$G"
 kicad-cli sch erc -o $O/erc.rpt --format report --units mm --severity-warning --severity-error --exit-code-violations $B.kicad_sch
 kicad-cli pcb drc -o $O/drc.rpt --format report --units mm --severity-warning --severity-error --refill-zones --schematic-parity $B.kicad_pcb
 n=$(grep -c '^\[' $O/drc.rpt || true); e=$(grep -c '^\[copper_edge_clearance' $O/drc.rpt || true)
@@ -19,8 +20,8 @@ kicad-cli pcb export gerbers -o $G --layers F.Cu,In1.Cu,In2.Cu,B.Cu,F.Paste,B.Pa
 kicad-cli pcb export drill -o $G/ --format excellon --drill-origin absolute --excellon-units mm \
   --excellon-zeros-format decimal --excellon-separate-th $B.kicad_pcb
 kicad-cli sch export bom -o $O/raw_bom.csv \
-  --fields 'Value,Reference,Footprint,LCSC,JLC_PCBA,${DNP},${EXCLUDE_FROM_BOM}' \
-  --labels 'Comment,Designator,Footprint,LCSC,JLC_PCBA,DNP,EXB' \
+  --fields 'Value,Reference,Footprint,LCSC,JLC_PCBA,${DNP},${EXCLUDE_FROM_BOM},MPN' \
+  --labels 'Comment,Designator,Footprint,LCSC,JLC_PCBA,DNP,EXB,MPN' \
   --group-by 'Value,Footprint,LCSC,JLC_PCBA,${DNP}' --sort-field Reference --exclude-dnp $B.kicad_sch
 python3 - "$O" <<'P'
 import csv, re, sys
@@ -44,7 +45,7 @@ def expand_refs(s):
 
 rows = list(csv.DictReader(open(o + '/raw_bom.csv')))
 w = csv.writer(open(o + '/Si5351AVFO_BOM_JLC.csv', 'w', newline=''))
-w.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part #'])
+w.writerow(['Comment', 'Designator', 'Footprint', 'LCSC Part #', 'MPN'])
 jlc_refs = set()
 for x in rows:
     # Post-filter: JLC_PCBA=No means the part is ordered from DigiKey and hand-soldered.
@@ -56,7 +57,7 @@ for x in rows:
         continue
     refs = expand_refs(x['Designator'])
     # JLC does not understand KiCad ranges like C4-C6; write every designator out.
-    w.writerow([x['Comment'], ','.join(refs), x['Footprint'].split(':')[-1], x['LCSC']])
+    w.writerow([x['Comment'], ','.join(refs), x['Footprint'].split(':')[-1], x['LCSC'], x.get('MPN', '')])
     jlc_refs.update(refs)
 open(o + '/jlc_refs.txt', 'w').write('\n'.join(sorted(jlc_refs, key=lambda r: (re.match(r'[A-Za-z]+', r).group(), int(re.search(r'\d+', r).group())))) + '\n')
 P
@@ -66,9 +67,11 @@ import csv, sys
 p = sys.argv[1] + '/Si5351AVFO_BOM_JLC.csv'
 rows = list(csv.reader(open(p))); out = []; idx = {}
 for r in rows[1:]:
-    if r[3] in idx: out[idx[r[3]]][1] += ',' + r[1]
+    if r[3] in idx:
+        m = out[idx[r[3]]]; m[1] += ',' + r[1]
+        if m[0] != r[0]: m[0] = r[4] or m[0]  # values differ (e.g. SOFT1/2/3): label the line with the MPN
     else: idx[r[3]] = len(out); out.append(list(r))
-w = csv.writer(open(p, 'w', newline='')); w.writerow(rows[0]); w.writerows(out)
+w = csv.writer(open(p, 'w', newline='')); w.writerow(rows[0][:4]); w.writerows(r[:4] for r in out)
 M
 rm $O/raw_bom.csv
 kicad-cli pcb export pos -o $O/raw_pos.csv --format csv --units mm --side both --exclude-dnp $B.kicad_pcb
@@ -92,4 +95,5 @@ for x in csv.DictReader(open(o + '/raw_pos.csv')):
 P
 rm -f $O/raw_pos.csv $O/jlc_refs.txt
 python3 -c "import zipfile,os,sys;g=sys.argv[1];z=zipfile.ZipFile(sys.argv[2],'w',zipfile.ZIP_DEFLATED);[z.write(os.path.join(g,f),f) for f in sorted(os.listdir(g))]" $G $O/Si5351AVFO_gerbers_JLC.zip
+python3 tools/check_jlc.py .
 echo done
